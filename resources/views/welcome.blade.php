@@ -128,7 +128,7 @@
         </div>
     --> 
     <div class="IndexAndLogin">
-        <img class="imginicio" src="GamersCritics\resources\views\imgimg/7b9.jpg" alt="HTML 5 Logo" height="80" width="70">
+        <img class="imginicio" src="img/aaaaa.jpg" alt="HTML 5 Logo" height="80" width="70">
         <div class="EmptyHead"> </div>
         <div class="Login">
             <table>
