@@ -79,40 +79,29 @@
                 }
 				div.EmptyHead
                 {
-                    display: block; text-align: center; width: 15%;
+                    display: block; text-align: center; width: 15%; 
                 }
-			div.Introduction
-			{
-				display: flex;
-			}
-				div.Wallpaper
+				
+			div.GamePreview
 				{
-					height:50%; width:100%; background-image: url("img/339.png"); background-repeat: no-repeat; background-size: 100% 100%; border: 5px; border-color: #c8bfe7; border-style:solid; border-radius: 2px;
+					display: flex; width:90%; margin-left: 5%; margin-top: 2.5%; border: 3px; border-style: solid; border-radius: 8px; border-color: #c8bfe7 ; background: #99d9ea;
 				}
-				div.ProfilePic
-				{
-					height:30%; width:15%;background-image: url("img/aaaaa.jpg"); background-repeat: no-repeat; background-size: 100% 100%; position: absolute; top: 240px; left: 20px; border: 6px; border-color: #c8bfe7; border-style:solid; border-radius: 8px;
-				}
-				div.Username
-				{
-					text-align: left; margin-left: 20%;top: 390px; position:absolute; border-bottom: 5px; border-bottom-color: #c8bfe7; border-bottom-style:solid; 
-				}
-			
-			div.UserData
-			{
-				display: flex; width:100%
-			}
-				div.ProfileData
-				{
-					width:30%; text-align: center; background: #7092be; height: 500px;
-				}
-				div.ItemGame,div.ItemUser
+					div.GameImages
 					{
-						display:flex; border-bottom: 3px;border-top: 3px; border-color: #3f48cc; border-bottom-style: solid; border-top-style: solid; border-radius: 2px;
+						text-align: center; width: 60%; margin-top:2.5%; margin-bottom: 2.5%; margin-left:2.5%; background: #7092be;
 					}
-					div.Data
+					div.GameData
 					{
-						margin-left:15px;
+						text-align: left; width: 30%; height:60%; margin-top:2.5%; margin-bottom: 2.5%; margin-left:2.5%;padding-left:2%; padding-right:1%; border-radius: 8px; background: #7092be; display: block;
+					}
+					
+			div.ReviewData
+				{
+					display: flex; width:95%; margin-left: 2.5%; height: 400px;  border-radius: 8px; background: #99d9ea; margin-bottom: 1%;
+				}
+					div.Review
+					{
+						text-align: left; width: 60%;
 					}
         </style>
 </head>
@@ -133,64 +122,58 @@
 		</div>
     </div>
 	
-	<div class="Introduction">
-		<div class="Wallpaper"></div>
-		<div class="ProfilePic"></div>
-		<div class="Username">
-			<h1 style="margin-bottom: 0px;">Nombre Usuario</h1>
+	<div class="GamePreview">
+		<div class="GameImages">
+			<div class="BigImage">
+				<img src="img/339.png" width="100%" height="300">
+			</div>
+			<div class="Thumbnails">
+				<table style="width: 100%">
+					<tr>
+						<td style="width:20%">
+							<img src="img/aaaaa.jpg" width="100%" height="100" style="padding-left:3px;">
+						<td>
+						<td>
+							<img src="img/aaaaa.jpg" width="100%" height="100" style="padding-left:3px;">
+						<td>
+						<td>
+							<img src="img/aaaaa.jpg" width="100%" height="100" style="padding-left:3px;">
+						<td>
+						<td>
+							<img src="img/aaaaa.jpg" width="100%" height="100" style="padding-left:3px;">
+						<td>
+						<td>
+							<img src="img/aaaaa.jpg" width="100%" height="100" style="padding-left:3px;">
+						<td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div class="GameData">
+			<h2> Nombre del Juego</h2>
+			<p>Pequeña reseña del videojuego. Maximo 255 caracteres.</p>			
+			<h4> Fecha de Lanzamiento: aaaa </h4>
+			<h4> Desarrollador: aaaa </h4>
+			<table>
+				<legend>Tags</legend>
+				<tr>
+					<td>AAA</td>		
+					<td>BBB</td>	
+					<td>CCC</td>	
+					<td>DDD</td>						
+				<tr>
+			</table>
 		</div>
 	</div>
 	
-	<div class="UserData">
-		<div class="ProfileData">
-			<h2>Nombre</h2>
-			<h3>Alias</h3>
-			<h3>Fecha de registro</h3>
+	<br>
+	
+	<div class="ReviewData">
+		<div class="Review">
+		
 		</div>
-		<div class="UserRelated">
-			<div class="ProfileInteractions">
-				<table style="width:30%; margin-left:5%">
-				<tr>
-					<td style="width:10%; height: 50px; padding-right: 20px;">
-						Reseñas
-					</td>
-					<td style="width:10%; height: 50px; padding-right: 20px;">
-						Seguidores
-					</td>
-					<td style="width:10%; height: 50px; padding-right: 20px;">
-						Siguiendo
-					</td>
-				</tr>
-			</table>
-			</div>		
-			<div class="ProfileResults">
-				<table class="Results" style="width: 100%;">
-					<legend><h2>Resultados</h2></legend>
-					<tr>
-						<td>
-							<div class="ItemGame">
-								<img class="ImgPrev" src="img/aaaaa.jpg" alt="HTML 5 Logo" height="100" width="100" style="margin-top:15px;">	
-								<div class="Data">
-									<h4>Titulo Juego</h4>
-									<p>Autor</p>
-									<p>Fecha</p>
-								</div>
-							</div>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<div class="ItemUser">
-								<img class="ImgPrev" src="img/aaaaa.jpg" alt="HTML 5 Logo" height="100" width="100" style="margin-top:15px;">	
-								<div class="Data">
-									<h4>Nombre Usuario</h4>
-									<p>Alias</p>
-								</div>
-							</div>
-						</td>
-					<tr>
-				</table>
-			</div>
+		<div class="User">
+		
 		</div>
 	</div>
 </body>
