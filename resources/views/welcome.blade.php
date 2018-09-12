@@ -51,7 +51,7 @@
             }
 
             .links > a {
-                color: #636b6f;
+                <!--color: #636b6f;-->
                 padding: 0 25px;
                 font-size: 12px;
                 font-weight: 600;
@@ -66,7 +66,7 @@
 
             div.IndexAndLogin
             {
-                background: #85F0F1; padding: 10px 10px 10px 10px; display: flex;
+                background: #99d9ea; padding: 10px 10px 20px 10px; display: flex;
             }  
                 img.imginicio
                 {
@@ -84,18 +84,95 @@
                 {
                     display: block; text-align: center; width: 40%;
                 }
+				
+			#cf4a {
+			  display:center;
+			  position:absolute;
+			  height:557px;
+			  width:60%;
+			  margin:0 auto;
+			}
+				#cf4a img {
+				  position:absolute;
+				  left:0;
+				  -webkit-transition: opacity 1s ease-in-out;
+				  -moz-transition: opacity 1s ease-in-out;
+				  -o-transition: opacity 1s ease-in-out;
+				  transition: opacity 1s ease-in-out;
+				}
+					#cf4a img:nth-of-type(1){
+					  animation-name: cf4FadeInOut;
+					animation-timing-function: ease-in-out;
+					animation-iteration-count: infinite;
+					animation-duration: 16s;
+					}
+					#cf4a img:nth-of-type(2){
+					  animation-name: cf4FadeInOut;
+					animation-timing-function: ease-in-out;
+					animation-iteration-count: infinite;
+					animation-duration: 16s;
+					}
+					#cf4a img:nth-of-type(3){
+					  animation-name: cf4FadeInOut;
+					animation-timing-function: ease-in-out;
+					animation-iteration-count: infinite;
+					animation-duration: 16s;
+					}
+					#cf4a img:nth-of-type(4){
+					  animation-name: cf4FadeInOut;
+					animation-timing-function: ease-in-out;
+					animation-iteration-count: infinite;
+					animation-duration: 16s;
+					}
+
+			@keyframes cf4FadeInOut {
+			  0% {
+				opacity:1;
+			  }
+			  17% {
+				opacity:1;
+			  }
+			  25% {
+				opacity:0;
+			  }
+			  92% {
+				opacity:0;
+			  }
+			  100% {
+				opacity:1;
+			  }
+			}
+				#cf4a img:nth-of-type(1) {
+				  animation-delay: 12s;
+				}
+				#cf4a img:nth-of-type(2) {
+				  animation-delay: 8s;
+				}
+				#cf4a img:nth-of-type(3) {
+				  animation-delay: 4s;
+				}
+				#cf4a img:nth-of-type(4) {
+				  animation-delay: 0;
+				}
+			
+			div.Center
+			{
+				display: flex;
+			}
             div.LandingPage
             {
-                background: #8585F1; padding: 10px 10px 10px 10px; display: block; text-align: center; padding-bottom: 21px;
+                border-left: 1px;border-radius: 2px; background: #7092be; padding: 10px 10px 10px 10px; display: block; text-align: center; padding-bottom: 21px; width: 40%; height:526px; position: relative; left: 58.4%;
             }
                 input.LandPageInput
                 {
-                    width:30%; border: 3px solid blue; border-radius: 8px; height: 20px;
+                    width:90%; border: 3px; border-style: solid; border-radius: 8px; border-color: #c8bfe7 ;height: 20px;
                 }
             input.Butttons
             {
-                background: #C0A5F5; border: 3px solid blue; width: 30% ; height: 40px;
+                background: #c8bfe7; border: 3px; border-style: solid; border-color: #3f48cc; width: 50% ; height: 40px;
             }
+			
+			
         </style>
     </head>
     <body>
@@ -128,7 +205,7 @@
         </div>
     --> 
     <div class="IndexAndLogin">
-        <img class="imginicio" src="img/aaaaa.jpg" alt="HTML 5 Logo" height="80" width="70">
+        <img class="imginicio" src="img/aaaaa.jpg" alt="HTML 5 Logo" height="70" width="70">
         <div class="EmptyHead"> </div>
         <div class="Login">
             <table>
@@ -136,34 +213,41 @@
                     <td class="login">
                         <div ="User"><b>Correo:</b><input class="LandPageInput" name="user" type="text" style="width: 100%;"></div>
                     </td>
-                    <td lass="login">
+                    <td class="login">
                         <div ="Password"><b>Contraseña:</b><input class="LandPageInput" name="pass" type="password" style="width: 90%;"></div>
                     </td>
                     <td class="login">
-                        <input class="Butttons" type="submit" style="margin-left: 10px; height:100%; width:100%;">
+                        <input class="Butttons" type="submit" style="margin-left: 10px; height:100%; width:100%; margin-top:18px;">
                     </td>
                 </tr>
             </table>
         </div>
     </div>
-
-    <div class="LandingPage">
-        <h1><b>GamersCritics</b></h1>
-        <pre>
-            "GamersCritics es una pagina creada por gamers para gamers cuyo enfoque
-            es la critica justa y veridica de los videojuegos que tanto amamos"
-        </pre>
-        <p>Nombre de Usuario</p>
-        <input class="LandPageInput" type="text">
-        <p>Correo</p>
-        <input class="LandPageInput" type="text">
-        <p>Contraseña</p>
-        <input class="LandPageInput" type="password">
-        <br>
-        <br>
-        <input class="Butttons" type="button" value="Crear Cuenta Nueva">
-        <h2>O</h2>
-        <input class="Butttons" type="button" value="Entrar como Invitado">
-    </div>
+	<div class="Center">
+		<div id="cf4a">
+			<img style="width:100%;height:100%;" src="img/bg1.jpg" />
+			<img style="width:100%;height:100%;" src="img/bg2.jpg" />
+			<img style="width:100%;height:100%;" src="img/bg3.jpg" />
+			<img style="width:100%;height:100%;" src="img/bg4.jpg" />
+		</div>
+		<div class="LandingPage">
+			<h1><b>GamersCritics</b></h1>
+			<h4 style="width:80%; margin-left:10%">
+"GamersCritics es una pagina creada por gamers para gamers cuyo enfoque es la critica justa y veridica de los videojuegos que tanto amamos"
+			</h4>
+			<p>Nombre de Usuario</p>
+			<input class="LandPageInput" type="text">
+			<p>Correo</p>
+			<input class="LandPageInput" type="text">
+			<p>Contraseña</p>
+			<input class="LandPageInput" type="password">
+			<br>
+			<br>
+			<br>
+			<input class="Butttons" type="button" value="Crear Cuenta Nueva">
+			<h2 style="margin-bottom:7px; margin-top:7px;">O</h2>
+			<input class="Butttons" type="button" value="Entrar como Invitado">
+		</div>
+	</div>
     </body>
 </html>

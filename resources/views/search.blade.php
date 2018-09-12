@@ -67,7 +67,7 @@
 
             div.Header
             {
-                background: #85F0F1; padding: 10px 10px 10px 10px; display: flex;
+                background: #99d9ea; padding: 10px 10px 10px 10px; display: flex;
             }  
                 img.imginicio
                 {
@@ -81,6 +81,26 @@
                 {
                     display: block; text-align: center; width: 15%;
                 }
+			div.SearchResults
+			{
+				display:flex; 
+			}
+				div.Categories
+				{
+					width:20%;text-align: left; background: #7092be; height: 500px;
+				}
+				div.Results
+				{
+					width:60%;text-align: left; 
+				}
+					div.ItemGame,div.ItemUser
+					{
+						display:flex; border-bottom: 3px;border-top: 3px; border-color: #3f48cc; border-bottom-style: solid; border-top-style: solid; border-radius: 2px;
+					}
+					div.Data
+					{
+						margin-left:15px;
+					}
         </style>
 </head>
 
@@ -99,5 +119,56 @@
 			<input type="button" value="Log Out" name="btnlogout">
 		</div>
     </div>
+	<div class="SearchMethods">
+		<table style="width:30%; margin-left:20%">
+			<tr>
+				<td style="width:10%; height: 50px;">
+					Todo
+				</td>
+				<td style="width:10%; height: 50px;">
+					Usuarios
+				</td>
+				<td style="width:10%; height: 50px;">
+					Videojuegos
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="SearchResults">
+		<div class="Categories">
+			<h2> Categorias </h2>
+			<ul>
+				<li>Categorias</li>
+			</ul>
+		</div>		
+		<div class="Results">
+			<table class="Results" style="width: 100%;">
+				<legend><h2>Resultados</h2></legend>
+				<tr>
+					<td>
+						<div class="ItemGame">
+							<img class="ImgPrev" src="img/aaaaa.jpg" alt="HTML 5 Logo" height="100" width="100" style="margin-top:15px;">	
+							<div class="Data">
+								<h4>Titulo Juego</h4>
+								<p>Autor</p>
+								<p>Fecha</p>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="ItemUser">
+							<img class="ImgPrev" src="img/aaaaa.jpg" alt="HTML 5 Logo" height="100" width="100" style="margin-top:15px;">	
+							<div class="Data">
+								<h4>Nombre Usuario</h4>
+								<p>Alias</p>
+							</div>
+						</div>
+					</td>
+				<tr>
+			</table>
+		</div>
+	</div>
 </body>
 </html>
