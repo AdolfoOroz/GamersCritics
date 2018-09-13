@@ -81,6 +81,24 @@
                 {
                     display: block; text-align: center; width: 15%;
                 }
+				
+				div.MainArticles
+				{
+					display: flex; width:95%; margin-left: 2.5%; margin-top:1%; border-radius: 8px; background: #99d9ea; margin-bottom:2%;				
+				}
+					div.TopReviews,div.FriendActions
+					{
+						width: 48%; margin-left:1%; margin-top: 2.5%; margin-bottom:2%;	
+					}
+							div.ItemGame,div.ItemUser
+						{
+							display:flex; border-bottom: 3px;border-top: 3px; border-color: #3f48cc; border-bottom-style: solid; border-top-style: solid; border-radius: 2px;
+						}
+						div.Data
+						{
+							margin-left:15px;
+						}
+						
         </style>
 </head>
 
@@ -99,5 +117,54 @@
 			<input type="button" value="Log Out" name="btnlogout">
 		</div>
     </div>
+	
+	<div class="MainArticles">
+		<div class="TopReviews">
+			<table style="width:100%">
+				<legend><h2>Reseñas recientes.</h2></legend>
+				<tr>
+					<td>
+						<div class="ItemGame">
+							<img class="ImgPrev" src="img/aaaaa.jpg" alt="HTML 5 Logo" height="100" width="100" style="margin-top:15px;">	
+							<div class="Data">
+								<h4>Titulo Juego</h4>
+								<p>Autor</p>
+								<p>Fecha</p>
+							</div>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div class="FriendActions">
+			<table style="width:100%">
+				<legend><h2>Actividad recientes.</h2></legend>
+				<tr>
+					<td>
+						<div class="ItemGame">
+							<img class="ImgPrev" src="img/aaaaa.jpg" alt="HTML 5 Logo" height="100" width="100" style="margin-top:15px;">	
+							<div class="Data">
+								<h4>Titulo Juego</h4>
+								<p>Autor</p>
+								<p>Fecha</p>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="ItemGame">
+							<img class="ImgPrev" src="img/aaaaa.jpg" alt="HTML 5 Logo" height="100" width="100" style="margin-top:15px;">	
+							<div class="Data">
+								<h4>Tu amigo comento</h4>
+								<p>Autor</p>
+								<p>Juego</p>
+							</div>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
 </body>
 </html>
