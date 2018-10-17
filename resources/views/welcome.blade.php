@@ -210,15 +210,17 @@
         <div class="Login">
             <table>
                 <tr>
-                    <td class="login">
+                    <!--<td class="login">
                         <div ="User"><b>Correo:</b><input class="LandPageInput" name="user" type="text" style="width: 100%;"></div>
                     </td>
                     <td class="login">
                         <div ="Password"><b>Contraseña:</b><input class="LandPageInput" name="pass" type="password" style="width: 90%;"></div>
-                    </td>
+                    </td>-->
                     <td class="login">
-                        <input class="Butttons" type="submit" style="margin-left: 10px; height:100%; width:100%; margin-top:18px;">
-                    </td>
+						<a href="{{ route('login') }}">
+							<input class="Butttons" type="submit" style="margin-left: 10px; height:100%; width:100%; margin-top:18px;">
+						</a>
+					</td>
                 </tr>
             </table>
         </div>
@@ -244,7 +246,9 @@
 			<br>
 			<br>
 			<br>
-			<input class="Butttons" type="button" value="Crear Cuenta Nueva">
+			<a href="{{ route('register') }}">
+				<input class="Butttons" type="button" value="Crear Cuenta Nueva">
+			</a>
 			<h2 style="margin-bottom:7px; margin-top:7px;">O</h2>
 			<input class="Butttons" type="button" value="Entrar como Invitado">
 		</div>

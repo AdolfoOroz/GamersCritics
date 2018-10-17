@@ -15,6 +15,11 @@ class CreateGamesTable extends Migration
     {
         Schema::create('games', function (Blueprint $table) {
             $table->increments('id');
+			$table->string('name');
+			$table->string('publisher');
+			$table->string('director');
+			$table->string('overalreview');
+			$table->integer('category_id');
             $table->timestamps();
         });
     }

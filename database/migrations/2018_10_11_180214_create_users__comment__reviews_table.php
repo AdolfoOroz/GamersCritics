@@ -15,6 +15,9 @@ class CreateUsersCommentReviewsTable extends Migration
     {
         Schema::create('users__comment__reviews', function (Blueprint $table) {
             $table->increments('id');
+			$table->integer('review_id')->unsigned();
+            $table->integer('user_id')->unsigned();
+			$table->string('comment');
             $table->timestamps();
         });
     }

@@ -32,6 +32,20 @@ class User extends Authenticatable
 		return $this->belongsToMany(Role::class);
 	}
 	
+	public function review() {
+        return $this->hasMany(Review::class); // this matches the Eloquent model
+    }
+	
+	public function UserBefriends() {
+        return $this->belongsToMany(User::class);
+    }
+	
+	public function UserRecommends() {
+        return $this->belongsToMany(User::class);
+    }
+	
+	
+	
 	public function authorizeRoles($roles){
 	if (is_array($roles)) {
 		return $this->hasAnyRole($roles) || 
