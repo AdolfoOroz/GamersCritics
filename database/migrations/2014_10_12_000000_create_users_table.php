@@ -18,8 +18,8 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
-			$table->mediumblob('profilepicture');
-			$table->mediumblob('backgroundpicture');
+			$table->binary('profilepicture');
+			$table->binary('backgroundpicture');
             $table->rememberToken();
             $table->timestamps();
         });
