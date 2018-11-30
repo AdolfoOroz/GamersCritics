@@ -44,7 +44,9 @@ class User extends Authenticatable
         return $this->belongsToMany(User::class);
     }
 	
-	
+	public function UserComments() {
+        return $this->hasMany(Comment::class); // this matches the Eloquent model
+    }
 	
 	public function authorizeRoles($roles){
 	if (is_array($roles)) {

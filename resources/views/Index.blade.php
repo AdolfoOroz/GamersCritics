@@ -104,7 +104,9 @@
 
 <body>
 	<div class="Header">
+		
         <img class="imginicio" src="img/aaaaa.jpg" alt="HTML 5 Logo" height="80" width="70">
+		
         <div class="EmptyHead"> </div>
 		<div class="Search" style="width:47%">
 			<input type="text" name="search" style="width:80%">
@@ -113,7 +115,9 @@
 		<div class="EmptyHead"> </div>
 		<div class="Menu">
 			<input type="button" value="Profile" name="btnprofile">
-			<input type="button" value="Upload" name="btnupload">
+			<a href="{{ route('upload') }}">
+				<input type="button" value="Upload" name="btnupload">
+			</a>
 			<input type="button" value="Log Out" name="btnlogout">
 		</div>
     </div>
@@ -122,18 +126,22 @@
 		<div class="TopReviews">
 			<table style="width:100%">
 				<legend><h2>Reseñas recientes.</h2></legend>
-				<tr>
+				@foreach(($Reviews= DB::table('reviews')->select('users.name', 'reviews.title', 'reviews.created_at', 'reviews.id')->leftJoin('users','reviews.user_id','=','users.id')->take(10)->get()) as $Review) 
+				<tr>				
 					<td>
+					<a href="/reviewpage/{{$Review->id}}">
 						<div class="ItemGame">
 							<img class="ImgPrev" src="img/aaaaa.jpg" alt="HTML 5 Logo" height="100" width="100" style="margin-top:15px;">	
 							<div class="Data">
-								<h4>Titulo Juego</h4>
-								<p>Autor</p>
-								<p>Fecha</p>
+								<h4>Titulo del Review: {{$Review->title}}</h4>
+								<p>Autor: {{$Review->name}}</p>
+								<p>Fecha: {{$Review->created_at}}</p>
 							</div>
 						</div>
+					</a>
 					</td>
 				</tr>
+				@endforeach
 			</table>
 		</div>
 		<div class="FriendActions">

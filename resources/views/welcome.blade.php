@@ -249,8 +249,6 @@
 			<a href="{{ route('register') }}">
 				<input class="Butttons" type="button" value="Crear Cuenta Nueva">
 			</a>
-			<h2 style="margin-bottom:7px; margin-top:7px;">O</h2>
-			<input class="Butttons" type="button" value="Entrar como Invitado">
 		</div>
 	</div>
     </body>

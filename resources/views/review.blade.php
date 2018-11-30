@@ -97,18 +97,24 @@
 					
 			div.ReviewData
 				{
-					display: flex; width:95%; margin-left: 2.5%; height: 400px;  border-radius: 8px; background: #99d9ea; margin-bottom: 1%;
+					display: flex; width:95%; margin-left: 2.5%; border-radius: 8px; background: #99d9ea; margin-bottom: 1%;
 				}
 					div.Review
 					{
 						text-align: left; width: 60%;
+					}
+					div.Comentarios
+					{
+						text-align: left;
 					}
         </style>
 </head>
 
 <body>
 	<div class="Header">
+		<a href="{{ route('home') }}">
         <img class="imginicio" src="img/aaaaa.jpg" alt="HTML 5 Logo" height="80" width="70">
+		</a>
         <div class="EmptyHead"> </div>
 		<div class="Search" style="width:47%">
 			<input type="text" name="search" style="width:80%">
@@ -150,17 +156,14 @@
 			</div>
 		</div>
 		<div class="GameData">
-			<h2> Nombre del Juego</h2>
-			<p>Pequeña reseña del videojuego. Maximo 255 caracteres.</p>			
-			<h4> Fecha de Lanzamiento: aaaa </h4>
-			<h4> Desarrollador: aaaa </h4>
+			<h2> {{$reviewchosen->gamename}}</h2>
+			<p>{{$reviewchosen->littlereview}}</p>			
+			<h4> Desarrolladora: {{$reviewchosen->publisher}} </h4>
+			<h4> Director: {{$reviewchosen->director}} </h4>
 			<table>
-				<legend>Tags</legend>
+				<legend>Categoria</legend>
 				<tr>
-					<td>AAA</td>		
-					<td>BBB</td>	
-					<td>CCC</td>	
-					<td>DDD</td>						
+					<td>AAA</td>						
 				<tr>
 			</table>
 		</div>
@@ -170,10 +173,66 @@
 	
 	<div class="ReviewData">
 		<div class="Review">
-		
+			<table>
+			<tr>
+				<td>
+				<h2>{{$reviewchosen->title}}</h2>
+				<h5>Review creado por {{$reviewchosen->name}}
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<p>{{$reviewchosen->description}}</p>
+				</td>
+			</tr>	
 		</div>
-		<div class="User">
-		
+		<br>
+		<div class="Comentarios">
+			<table>
+				<tr>
+					<td>
+						<h2>Comentarios de Usuarios<h2>
+					</td>
+				</tr>
+				@foreach(($Comments= DB::table('comments')->select('users.name', 'comments.comment', 'comments.created_at')->leftJoin('users','comments.user_id','=','users.id')->get()) as $Comment) 
+				<tr>
+					<td>
+						<p style="margin: 0%; border-bottom: 3px solid blue;"><font size="4"><b>{{$Comment->name}}</b></font></p>
+                                                        <p style="margin: 0%; margin-left: 1em;"><font size="2"><b>{{$Comment->created_at}}</b></font></p>
+							<p style = "margin-left: 2em; margin-top: 1em; margin-bottom: 1em;">{{$Comment->comment}}</p>
+					</td>
+				</tr>
+				@endforeach					
+				<tr>
+					<td>
+						<br>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<p>Insertar Comentario<p>
+					</td>
+				</tr>
+				<form action="/reviewpage/{{$reviewchosen->idreview}}/comment" method="POST">
+				@csrf
+				<tr>
+					<td>
+							<textarea style="resize: none" name="ReviewCommentGeneral"  rows="6" cols="60" placeholder="Maximo 255 caracteres." maxlength="255"></textarea>					
+					</td>
+				</tr>
+				<tr>
+					<td>
+						@guest
+							
+						@else
+						<input type="hidden" name="ReviewComment" value="{{ $reviewchosen->idreview }}">
+						<input type="hidden" name="UserComment" value="{{ Auth::user()->id }}">
+						@endguest
+						<input type="submit" value="Insertar Comentario"> 	
+					</td>
+				</tr>
+				</form>
+			</table>
 		</div>
 	</div>
 </body>
