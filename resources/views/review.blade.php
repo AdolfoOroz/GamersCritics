@@ -5,7 +5,7 @@
 <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
+		
         <title>Laravel</title>
 
         <!-- Fonts -->
@@ -108,6 +108,7 @@
 						text-align: left;
 					}
         </style>
+		<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"></script>
 </head>
 
 <body>
@@ -136,21 +137,11 @@
 			<div class="Thumbnails">
 				<table style="width: 100%">
 					<tr>
+					@foreach(($Images= DB::table('images')->where('images.review_id', $reviewchosen->idreview )->get()) as $Image)
 						<td style="width:20%">
-							<img src="img/aaaaa.jpg" width="100%" height="100" style="padding-left:3px;">
+							<img src="{{$Image->reviewimage}}" width="100%" height="100" style="padding-left:3px;">
 						<td>
-						<td>
-							<img src="img/aaaaa.jpg" width="100%" height="100" style="padding-left:3px;">
-						<td>
-						<td>
-							<img src="img/aaaaa.jpg" width="100%" height="100" style="padding-left:3px;">
-						<td>
-						<td>
-							<img src="img/aaaaa.jpg" width="100%" height="100" style="padding-left:3px;">
-						<td>
-						<td>
-							<img src="img/aaaaa.jpg" width="100%" height="100" style="padding-left:3px;">
-						<td>
+					@endforeach
 					</tr>
 				</table>
 			</div>
@@ -177,7 +168,8 @@
 			<tr>
 				<td>
 				<h2>{{$reviewchosen->title}}</h2>
-				<h5>Review creado por {{$reviewchosen->name}}
+				<h5>Review creado por {{$reviewchosen->name}}</h5>
+				<h5>Creado el {{$reviewchosen->created_at}}</h5>
 				</td>
 			</tr>
 			<tr>
@@ -219,7 +211,7 @@
 					<td>
 							<textarea style="resize: none" name="ReviewCommentGeneral"  rows="6" cols="60" placeholder="Maximo 255 caracteres." maxlength="255"></textarea>					
 					</td>
-				</tr>
+				</tr>		
 				<tr>
 					<td>
 						@guest

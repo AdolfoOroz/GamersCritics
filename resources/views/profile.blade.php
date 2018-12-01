@@ -137,15 +137,15 @@
 		<div class="Wallpaper"></div>
 		<div class="ProfilePic"></div>
 		<div class="Username">
-			<h1 style="margin-bottom: 0px;">Nombre Usuario</h1>
+			<h1 style="margin-bottom: 0px;">{{$userprofile->name}}</h1>
 		</div>
 	</div>
 	
 	<div class="UserData">
 		<div class="ProfileData">
-			<h2>Nombre</h2>
-			<h3>Alias</h3>
-			<h3>Fecha de registro</h3>
+			<h2>{{$userprofile->name}}</h2>
+			<h3>{{$userprofile->name}}</h3>
+			<h3>Fecha de registro: {{$userprofile->created_at}}</h3>
 		</div>
 		<div class="UserRelated">
 			<div class="ProfileInteractions">
@@ -167,16 +167,20 @@
 				<table class="Results" style="width: 100%;">
 					<legend><h2>Resultados</h2></legend>
 					<tr>
+					@foreach(($Reviews= DB::table('reviews')->select('users.name','reviews.created_at', 'reviews.title', 'reviews.created_at', 'reviews.id as idreview','reviews.description','games.name as gamename', 'games.overalreview as littlereview','games.publisher','games.director')->leftJoin('users','reviews.user_id','=','users.id')->leftJoin('games','reviews.game_id','=','games.id')->where('reviews.user_id', $userprofile->id )->get()) as $Review) 
 						<td>
+							<a href="/reviewpage/{{$Review->idreview}}">
 							<div class="ItemGame">
 								<img class="ImgPrev" src="img/aaaaa.jpg" alt="HTML 5 Logo" height="100" width="100" style="margin-top:15px;">	
 								<div class="Data">
-									<h4>Titulo Juego</h4>
-									<p>Autor</p>
-									<p>Fecha</p>
+									<h4>{{$Review->title}}</h4>
+									<p>Review creado por {{$Review->name}}</p>
+									<p>Creado el {{$Review->created_at}}</p>
 								</div>
 							</div>
+							</a>
 						</td>
+					@endforeach	
 					</tr>
 					<tr>
 						<td>

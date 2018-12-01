@@ -142,7 +142,7 @@
 			</div>
 		</form>
 		<div class="Review">
-		<form action="{{ route('upload-reviews') }}" method="POST">
+		<form action="{{route('upload-reviews')}}" method="POST" enctype="multipart/form-data">
 		@csrf
 		<legend><h2>Datos de Review<h2></legend>
 			
@@ -176,6 +176,26 @@
 				<tr>
 					<td colspan="2">
 					<textarea style="resize: none" name="GameReview" placeholder="Maximo 4000 caracteres." maxlength="4000"  rows="22" cols="48" ></textarea>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<input type="file" name="ReviewImages1" accept="image/*">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<input type="file" name="ReviewImages2" accept="image/*">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<input type="file" name="ReviewImages3" accept="image/*">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<input type="file" name="ReviewImages4" accept="image/*">
 					</td>
 				</tr>
 				<tr>

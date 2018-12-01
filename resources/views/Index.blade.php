@@ -109,16 +109,25 @@
 		
         <div class="EmptyHead"> </div>
 		<div class="Search" style="width:47%">
+			<form action="{{ route('search-review') }}" method="GET" >
+			@csrf
 			<input type="text" name="search" style="width:80%">
-			<input type="button" value="Search" name="btnsearch">
+			<input type="submit" value="Buscar">
+			</form>
 		</div>
 		<div class="EmptyHead"> </div>
 		<div class="Menu">
+		@guest
+							
+		@else
+			<a href="/profile/{{Auth::user()->id}}">
 			<input type="button" value="Profile" name="btnprofile">
+			</a>
 			<a href="{{ route('upload') }}">
 				<input type="button" value="Upload" name="btnupload">
 			</a>
 			<input type="button" value="Log Out" name="btnlogout">
+		@endguest
 		</div>
     </div>
 	

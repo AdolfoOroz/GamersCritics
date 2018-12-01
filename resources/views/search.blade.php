@@ -144,18 +144,24 @@
 		<div class="Results">
 			<table class="Results" style="width: 100%;">
 				<legend><h2>Resultados</h2></legend>
+				@if (!empty($reviewsearch))
+				@foreach($reviewsearch as $Review) 
 				<tr>
 					<td>
+					<a href="/reviewpage/{{$Review->idreview}}">
 						<div class="ItemGame">
 							<img class="ImgPrev" src="img/aaaaa.jpg" alt="HTML 5 Logo" height="100" width="100" style="margin-top:15px;">	
 							<div class="Data">
-								<h4>Titulo Juego</h4>
-								<p>Autor</p>
-								<p>Fecha</p>
+								<h4>{{$Review->title}}</h4>
+								<p>Review creado por {{$Review->name}}</p>
+								<p>Creado el {{$Review->created_at}}</p>
 							</div>
 						</div>
+					</a>
 					</td>
 				</tr>
+				@endforeach
+				@endif
 				<tr>
 					<td>
 						<div class="ItemUser">

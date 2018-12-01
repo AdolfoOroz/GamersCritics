@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Review;
+use App\Images;
 class ReviewController extends Controller
 {
     /**
@@ -45,6 +46,15 @@ class ReviewController extends Controller
 | user_id     | int(11)          | NO   |     | NULL    |                |
 | game_id     | int(11)          | NO   |     | NULL    |                |
 | rating      | int(11)          | NO   |     | NULL    |                |		
+
++-------------+------------------+------+-----+---------+----------------+
+| Field       | Type             | Null | Key | Default | Extra          |
++-------------+------------------+------+-----+---------+----------------+
+| id          | int(10) unsigned | NO   | PRI | NULL    | auto_increment |
+| reviewimage | blob             | NO   |     | NULL    |                |
+| review_id   | int(11)          | NO   |     | NULL    |                |
+| created_at  | timestamp        | YES  |     | NULL    |                |
+| updated_at  | timestamp        | YES  |     | NULL    |                |
 	*/
     public function store(Request $request)
     {
@@ -61,7 +71,36 @@ class ReviewController extends Controller
 		$NewReview->rating=0;
 		$NewReview->save();
 		
-
+		$ReviewId=$NewReview->id;		
+		
+		if(!empty($request->file('ReviewImages1')))
+		{
+			$NewImage= new Images;
+			$NewImage->review_id=$ReviewId;
+			$NewImage->reviewimage=$request->file('ReviewImages1')->store('photos');
+			$NewImage->save();
+		}
+		if(!empty($request->file('ReviewImages2')))
+		{
+			$NewImage= new Images;
+			$NewImage->review_id=$ReviewId;
+			$NewImage->reviewimage=$request->file('ReviewImages2')->store('photos');
+			$NewImage->save();
+		}
+		if(!empty($request->file('ReviewImages3')))
+		{
+			$NewImage= new Images;
+			$NewImage->review_id=$ReviewId;
+			$NewImage->reviewimage=$request->file('ReviewImages3')->store('photos');
+			$NewImage->save();
+		}
+		if(!empty($request->file('ReviewImages4')))
+		{
+			$NewImage= new Images;
+			$NewImage->review_id=$ReviewId;
+			$NewImage->reviewimage=$request->file('ReviewImages4')->store('photos');
+			$NewImage->save();
+		}
         return redirect()->back();
     }
 
@@ -71,12 +110,21 @@ class ReviewController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+	  public function search(Request $request)
+	 {
+		 $SearchValue=$request->input('search');
+		 return view(
+			'search', 
+			['reviewsearch' => Review::select('users.name','reviews.created_at', 'reviews.title', 'reviews.created_at', 'reviews.id as idreview','reviews.description','games.name as gamename', 'games.overalreview as littlereview','games.publisher','games.director')->leftJoin('users','reviews.user_id','=','users.id')->leftJoin('games','reviews.game_id','=','games.id')->where('reviews.title', 'like', '%' . $SearchValue . '%')->get()]
+		);
+	 }
+	 
     public function show($id)
     {
         //
-		 return view(
+		return view(
 			'review', 
-			['reviewchosen' => Review::select('users.name', 'reviews.title', 'reviews.created_at', 'reviews.id as idreview','reviews.description','games.name as gamename', 'games.overalreview as littlereview','games.publisher','games.director')->leftJoin('users','reviews.user_id','=','users.id')->leftJoin('games','reviews.game_id','=','games.id')->findOrFail($id)]
+			['reviewchosen' => Review::select('users.name','reviews.created_at','reviews.title', 'reviews.created_at', 'reviews.id as idreview','reviews.description','games.name as gamename', 'games.overalreview as littlereview','games.publisher','games.director')->leftJoin('users','reviews.user_id','=','users.id')->leftJoin('games','reviews.game_id','=','games.id')->findOrFail($id)]
 		);
     }
 

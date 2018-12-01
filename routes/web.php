@@ -26,6 +26,8 @@ Route::get('/upload', function () {
 })->name('upload');
 
 Route::get('/reviewpage/{idreview}',['as' => 'show-review', 'uses' => 'ReviewController@show']);
+Route::get('/search',['as' => 'search-review', 'uses' => 'ReviewController@search']);
+Route::get('/profile/{iduser}',['as' => 'show-profile', 'uses' => 'UserController@show']);
 
 Route::post('/upload/game',['as' => 'upload-games', 'uses' => 'GamesControllers@store']);
 Route::post('/upload/review',['as' => 'upload-reviews', 'uses' => 'ReviewController@store']);
