@@ -122,6 +122,8 @@
 			<input type="button" value="Search" name="btnsearch">
 		</div>
 		<div class="EmptyHead"> </div>
+		
+		
 		<div class="Menu">
 			<input type="button" value="Profile" name="btnprofile">
 			<input type="button" value="Upload" name="btnupload">
