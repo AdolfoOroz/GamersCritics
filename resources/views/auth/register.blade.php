@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Register') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}" aria-label="{{ __('Register') }}">
+                    <form method="POST" action="{{ route('register') }}" aria-label="{{ __('Register') }}" enctype="multipart/form-data">
                         @csrf
 
                         <div class="form-group row">
@@ -58,6 +58,22 @@
 
                             <div class="col-md-6">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                            </div>
+                        </div>
+						
+						<div class="form-group row">
+                            <label for="profile_picture" class="col-md-4 col-form-label text-md-right">{{ __('Profile Picture') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="profile_picture" type="file" class="form-control" name="profile_picture" required>
+                            </div>
+                        </div>
+						
+						<div class="form-group row">
+                            <label for="background_picture" class="col-md-4 col-form-label text-md-right">{{ __('Background Picture') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="background_picture" type="file" class="form-control" name="background_picture" required>
                             </div>
                         </div>
 

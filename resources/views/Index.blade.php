@@ -122,10 +122,10 @@
 		@else
 			<a href="/profile/{{Auth::user()->id}}">
 			<input type="button" value="Profile" name="btnprofile">
-			</a>
 			<a href="{{ route('upload') }}">
 				<input type="button" value="Upload" name="btnupload">
 			</a>
+			<p>
 			<input type="button" value="Log Out" name="btnlogout">
 		@endguest
 		</div>

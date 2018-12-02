@@ -60,17 +60,45 @@ class RegisterController extends Controller
      *
      * @param  array  $data
      * @return \App\User
+	 +----------------+------------------+------+-----+---------+----------------+
+| id             | int(10) unsigned | NO   | PRI | NULL    | auto_increment |
+| name           | varchar(255)     | NO   |     | NULL    |                |
+| email          | varchar(255)     | NO   | UNI | NULL    |                |
+| password       | varchar(255)     | NO   |     | NULL    |                |
+| remember_token | varchar(100)     | YES  |     | NULL    |                |
+| created_at     | timestamp        | YES  |     | NULL    |                |
+| updated_at     | timestamp        | YES  |     | NULL    |                |
+| profile_pic    | blob             | NO   |     | NULL    |                |
+| background_pic | blob             | NO   |     | NULL    |                |
      */
     protected function create(array $data){
-  $user = User::create([
+	$Profilepic=null;
+	$Backgroundpic=null;
+	if(!empty($data['profile_picture']))
+		{			
+			$Profilepic=$data['profile_picture']->store('Users');
+		}
+	if(!empty($data['background_picture']))
+		{
+			$Backgroundpic=$data['background_picture']->store('Users');
+		}	
+  /*$user = User::create([
     'name'     => $data['name'],
     'email'    => $data['email'],
     'password' => Hash::make($data['password']),
-  ]);
-  $user->roles()
+	'profile_pic' => $Profilepic,
+	'background_pic' => $Backgroundpic,
+  ]);*/
+  $NewUser = new User;
+  $NewUser->name=$data['name'];
+  $NewUser->email=$data['email'];
+  $NewUser->password=Hash::make($data['password']);
+  $NewUser->profile_pic=$Profilepic;
+  $NewUser->background_pic=$Backgroundpic;
+  $NewUser->roles()
     ->attach(Role::where('name', 'cliente')->first());
-  
-  return $user;
+  $NewUser->save();
+  return $NewUser;
 }
 	
 	
