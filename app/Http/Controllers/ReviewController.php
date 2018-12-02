@@ -77,28 +77,28 @@ class ReviewController extends Controller
 		{
 			$NewImage= new Images;
 			$NewImage->review_id=$ReviewId;
-			$NewImage->reviewimage=$request->file('ReviewImages1')->store('photos');
+			$NewImage->reviewimage=$request->file('ReviewImages1')->store('public');
 			$NewImage->save();
 		}
 		if(!empty($request->file('ReviewImages2')))
 		{
 			$NewImage= new Images;
 			$NewImage->review_id=$ReviewId;
-			$NewImage->reviewimage=$request->file('ReviewImages2')->store('photos');
+			$NewImage->reviewimage=$request->file('ReviewImages2')->store('public');
 			$NewImage->save();
 		}
 		if(!empty($request->file('ReviewImages3')))
 		{
 			$NewImage= new Images;
 			$NewImage->review_id=$ReviewId;
-			$NewImage->reviewimage=$request->file('ReviewImages3')->store('photos');
+			$NewImage->reviewimage=$request->file('ReviewImages3')->store('public');
 			$NewImage->save();
 		}
 		if(!empty($request->file('ReviewImages4')))
 		{
 			$NewImage= new Images;
 			$NewImage->review_id=$ReviewId;
-			$NewImage->reviewimage=$request->file('ReviewImages4')->store('photos');
+			$NewImage->reviewimage=$request->file('ReviewImages4')->store('public');
 			$NewImage->save();
 		}
         return redirect()->back();

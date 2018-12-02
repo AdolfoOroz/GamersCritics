@@ -76,11 +76,11 @@ class RegisterController extends Controller
 	$Backgroundpic=null;
 	if(!empty($data['profile_picture']))
 		{			
-			$Profilepic=$data['profile_picture']->store('Users');
+			$Profilepic=$data['profile_picture']->store('public');
 		}
 	if(!empty($data['background_picture']))
 		{
-			$Backgroundpic=$data['background_picture']->store('Users');
+			$Backgroundpic=$data['background_picture']->store('public');
 		}	
   /*$user = User::create([
     'name'     => $data['name'],

@@ -141,7 +141,7 @@
 					<tr>
 					@foreach(($Images= DB::table('images')->where('images.review_id', $reviewchosen->idreview )->get()) as $Image)
 						<td style="width:20%">
-							<img src="{{$Image->reviewimage}}" width="100%" height="100" style="padding-left:3px;">
+							<img src="{{Storage::url($Image->reviewimage)}}" width="100%" height="100" style="padding-left:3px;">
 						<td>
 					@endforeach
 					</tr>
@@ -188,8 +188,14 @@
 						<h2>Comentarios de Usuarios<h2>
 					</td>
 				</tr>
-				@foreach(($Comments= DB::table('comments')->select('users.name', 'comments.comment', 'comments.created_at')->leftJoin('users','comments.user_id','=','users.id')->get()) as $Comment) 
+				@foreach(($Comments= DB::table('comments')->select('users.name', 'users.id as iduser' ,'users.profile_pic' , 'comments.comment', 'comments.created_at')->leftJoin('users','comments.user_id','=','users.id')->get()) as $Comment) 
 				<tr>
+					<td>
+						<form>
+							<a href="/profile/{{$Comment->iduser}}">
+								<img width="100px" height="100px" src="{{Storage::url($Comment->profile_pic)}}">
+							</a>
+						</form>
 					<td>
 						<p style="margin: 0%; border-bottom: 3px solid blue;"><font size="4"><b>{{$Comment->name}}</b></font></p>
                                                         <p style="margin: 0%; margin-left: 1em;"><font size="2"><b>{{$Comment->created_at}}</b></font></p>

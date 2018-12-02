@@ -87,11 +87,11 @@
 			}
 				div.Wallpaper
 				{
-					height:50%; width:100%; background-image: url("img/339.png"); background-repeat: no-repeat; background-size: 100% 100%; border: 5px; border-color: #c8bfe7; border-style:solid; border-radius: 2px;
+					height:50%; width:100%; background-repeat: no-repeat; background-size: 100% 100%; border: 5px; border-color: #c8bfe7; border-style:solid; border-radius: 2px;
 				}
 				div.ProfilePic
 				{
-					height:30%; width:15%;background-image: url("img/aaaaa.jpg"); background-repeat: no-repeat; background-size: 100% 100%; position: absolute; top: 240px; left: 20px; border: 6px; border-color: #c8bfe7; border-style:solid; border-radius: 8px;
+					height:30%; width:15%; background-repeat: no-repeat; background-size: 100% 100%; position: absolute; top: 240px; left: 20px; border: 6px; border-color: #c8bfe7; border-style:solid; border-radius: 8px;
 				}
 				div.Username
 				{
@@ -134,8 +134,14 @@
     </div>
 	
 	<div class="Introduction">
-		<div class="Wallpaper"></div>
-		<div class="ProfilePic"></div>
+		<?php
+			$UserProfilepic=$userprofile->profile_pic;
+			$url1=Storage::url($UserProfilepic);
+			$UserBackgroundpic=$userprofile->background_pic;
+			$url2=Storage::url($UserBackgroundpic);
+		?>
+		<div class="Wallpaper"> <img  width="100%" height="100%" src="{{$url2}}"> </div>
+		<div class="ProfilePic"> <img width="100%" height="100%" src="{{$url1}}"> </div>
 		<div class="Username">
 			<h1 style="margin-bottom: 0px;">{{$userprofile->name}}</h1>
 		</div>

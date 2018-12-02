@@ -120,13 +120,35 @@
 		@guest
 							
 		@else
-			<a href="/profile/{{Auth::user()->id}}">
-			<input type="button" value="Profile" name="btnprofile">
-			<a href="{{ route('upload') }}">
-				<input type="button" value="Upload" name="btnupload">
-			</a>
-			<p>
-			<input type="button" value="Log Out" name="btnlogout">
+			<table>
+				<tr>
+					<td>
+					<?php
+					$UserProfilepic=Auth::user()->profile_pic;
+					$url=Storage::url($UserProfilepic);
+					?>
+						<img width="100px" height="100px" src="{{$url}}">
+					</td>
+					<td>
+						<p>{{Auth::user()->name}}</p>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<a href="/profile/{{Auth::user()->id}}">
+						<input type="button" value="Profile" name="btnprofile">
+						</a>
+					</td>
+					<td>
+						<a href="{{ route('upload') }}">
+							<input type="button" value="Upload" name="btnupload">
+						</a>
+					</td>
+					<td>
+						<input type="button" value="Log Out" name="btnlogout">
+					</td>
+				</tr>
+			</table>
 		@endguest
 		</div>
     </div>
