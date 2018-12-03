@@ -36,6 +36,10 @@ class User extends Authenticatable
         return $this->hasMany(Review::class); // this matches the Eloquent model
     }
 	
+	public function review_rating() {
+        return $this->hasMany(Rating::class); // this matches the Eloquent model
+    }
+	
 	public function UserBefriends() {
         return $this->belongsToMany(User::class);
     }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Review;
 use App\Images;
+use App\Videos;
 class ReviewController extends Controller
 {
     /**
@@ -78,7 +79,7 @@ class ReviewController extends Controller
 			$NewImage= new Images;
 			$NewImage->review_id=$ReviewId;
 			$NewImage->reviewimage=$request->file('ReviewImages1')->store('public');
-			$NewImage->save();
+			$NewImage->save();
 		}
 		if(!empty($request->file('ReviewImages2')))
 		{
@@ -100,6 +101,20 @@ class ReviewController extends Controller
 			$NewImage->review_id=$ReviewId;
 			$NewImage->reviewimage=$request->file('ReviewImages4')->store('public');
 			$NewImage->save();
+		}
+		if(!empty($request->file('ReviewVideo1')))
+		{
+			$NewVideo= new Videos;
+			$NewVideo->review_id=$ReviewId;
+			$NewVideo->reviewvideo=$request->file('ReviewVideo1')->store('public');
+			$NewVideo->save();
+		}
+		if(!empty($request->file('ReviewVideo2')))
+		{
+			$NewVideo= new Videos;
+			$NewVideo->review_id=$ReviewId;
+			$NewVideo->reviewvideo=$request->file('ReviewVideo2')->store('public');
+			$NewVideo->save();
 		}
         return redirect()->back();
     }

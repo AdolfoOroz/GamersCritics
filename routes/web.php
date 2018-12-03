@@ -31,7 +31,9 @@ Route::get('/profile/{iduser}',['as' => 'show-profile', 'uses' => 'UserControlle
 
 Route::post('/upload/game',['as' => 'upload-games', 'uses' => 'GamesControllers@store']);
 Route::post('/upload/review',['as' => 'upload-reviews', 'uses' => 'ReviewController@store']);
-Route::post('/reviewpage/{idreview}/comment',['as' => 'upload-comment', 'uses' => 'CommentsController@store']);
+Route::post('/reviewpage/{idreview}/comment',['as' => 'upload_comment', 'uses' => 'CommentsController@store']);
+Route::post('/reviewpage/{idreview}/rating',['as' => 'upload_rating', 'uses' => 'RatingController@store']);
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

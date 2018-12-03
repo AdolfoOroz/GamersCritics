@@ -18,6 +18,10 @@ class Review extends Model
 	public function review_images() {
         return $this->hasMany(Images::class); // this matches the Eloquent model
     }
+		
+	public function review_rating() {
+        return $this->hasMany(Rating::class); // this matches the Eloquent model
+    }
 	
 	public function review_videos() {
         return $this->hasMany(Videos::class); // this matches the Eloquent model

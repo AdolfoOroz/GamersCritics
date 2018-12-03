@@ -178,6 +178,9 @@
 					<textarea style="resize: none" name="GameReview" placeholder="Maximo 4000 caracteres." maxlength="4000"  rows="22" cols="48" ></textarea>
 					</td>
 				</tr>
+				<td>
+					<h4>Imagenes</h4>
+				</td>
 				<tr>
 					<td>
 						<input type="file" name="ReviewImages1" accept="image/*">
@@ -196,6 +199,19 @@
 				<tr>
 					<td>
 						<input type="file" name="ReviewImages4" accept="image/*">
+					</td>
+				</tr>
+				<td>
+					<h4>Videos</h4>
+				</td>
+				<tr>
+					<td>
+						<input type="file" name="ReviewVideo1" accept="image/*">
+					</td>
+				</tr>				
+				<tr>
+					<td>
+						<input type="file" name="ReviewVideo2" accept="image/*">
 					</td>
 				</tr>
 				<tr>

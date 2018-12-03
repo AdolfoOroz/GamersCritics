@@ -145,6 +145,13 @@
 						<td>
 					@endforeach
 					</tr>
+					<tr style="text-align: center;">
+					@foreach(($Videos= DB::table('videos')->where('videos.review_id', $reviewchosen->idreview )->get()) as $Video)
+						<td style="width:20%">
+							<video src="{{Storage::url($Video->reviewvideo)}}" width="100%" height="100" style="padding-left:3px;"><video>
+						<td>
+					@endforeach
+					</tr>
 				</table>
 			</div>
 		</div>
@@ -172,13 +179,47 @@
 				<h2>{{$reviewchosen->title}}</h2>
 				<h5>Review creado por {{$reviewchosen->name}}</h5>
 				<h5>Creado el {{$reviewchosen->created_at}}</h5>
+				
+				<?php
+				$RatingGeneral=0;
+				$Count=0;
+				/*
+				foreach(($Ratings= DB::table('ratings')->where('ratings.review_id', $reviewchosen->idreview )->get()) as $RatingA)
+				{
+					$Count=$Count+1;
+					$RatingGeneral=$RatingGeneral+$RatingA->rating;
+				}
+				$RatingGeneral=$RatingGeneral/$Count;
+				*/
+				?>
+				<h5>Calificacion General:{{$RatingGeneral}}</h5>
 				</td>
 			</tr>
 			<tr>
 				<td>
 					<p>{{$reviewchosen->description}}</p>
 				</td>
+			</tr>
+			<form action="/reviewpage/{{$reviewchosen->idreview}}/rating" method="POST">
+			<tr>
+				<td>
+					<h1>Ratear Review</h1>	
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<p>Selecionar Calificacion:<p>
+				</td>
+				<td>
+					<input type="hidden" name="UserRating" value="{{ Auth::user()->id }}">
+					<input type="hidden" name="ReviewRating" value="{{$reviewchosen->idreview}}">
+					<input type="number" name="NumberRating" min="0" max="5">					
+				</td>
+				<td>
+					<input type="submit" value="Calificar">
+				</td>
 			</tr>	
+			</form>		
 		</div>
 		<br>
 		<div class="Comentarios">
