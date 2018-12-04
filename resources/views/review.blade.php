@@ -160,12 +160,7 @@
 			<p>{{$reviewchosen->littlereview}}</p>			
 			<h4> Desarrolladora: {{$reviewchosen->publisher}} </h4>
 			<h4> Director: {{$reviewchosen->director}} </h4>
-			<table>
-				<legend>Categoria</legend>
-				<tr>
-					<td>AAA</td>						
-				<tr>
-			</table>
+			<h4>Categoria</h4>
 		</div>
 	</div>
 	
@@ -173,16 +168,16 @@
 	
 	<div class="ReviewData">
 		<div class="Review">
-			<table>
+			<table  style="margin-left:2%">
 			<tr>
 				<td>
 				<h2>{{$reviewchosen->title}}</h2>
 				<h5>Review creado por {{$reviewchosen->name}}</h5>
 				<h5>Creado el {{$reviewchosen->created_at}}</h5>
 				
-				<?php
+				@php
 				$RatingGeneral=0;
-				$Count=0;
+				$Counta=0;
 				/*
 				foreach(($Ratings= DB::table('ratings')->where('ratings.review_id', $reviewchosen->idreview )->get()) as $RatingA)
 				{
@@ -191,8 +186,17 @@
 				}
 				$RatingGeneral=$RatingGeneral/$Count;
 				*/
-				?>
-				<h5>Calificacion General:{{$RatingGeneral}}</h5>
+				@endphp
+				@foreach(($Ratings= DB::table('ratings')->select('rating')->where('review_id',$reviewchosen->idreview)->get()) as $RatingA)
+				@php
+					$RatingGeneral=$RatingGeneral+$RatingA->rating;
+					$Counta=$Counta+1;
+				@endphp
+				@endforeach
+				@php
+				$RatingMuestra=$RatingGeneral/$Counta;
+				@endphp
+				<h5>Calificacion General:{{$RatingMuestra}}</h5>
 				</td>
 			</tr>
 			<tr>
@@ -201,11 +205,20 @@
 				</td>
 			</tr>
 			<form action="/reviewpage/{{$reviewchosen->idreview}}/rating" method="POST">
+			@csrf
 			<tr>
 				<td>
-					<h1>Ratear Review</h1>	
+					<h1>Calificar Review</h1>	
 				</td>
-			</tr>
+			</tr>			
+			@guest
+							
+			@else
+			@php
+			$RatingReviewUser=DB::table('ratings')->select('rating')->where('review_id',$reviewchosen->idreview)->where('user_id',Auth::user()->id)->get();
+			if($RatingReviewUser=="[]")
+			{
+			@endphp
 			<tr>
 				<td>
 					<p>Selecionar Calificacion:<p>
@@ -218,32 +231,47 @@
 				<td>
 					<input type="submit" value="Calificar">
 				</td>
-			</tr>	
-			</form>		
+			</tr>
+			@php
+			}
+			else
+			{
+			@endphp
+			<tr>
+				<td>
+					<h4>Gracias Por Calificar! </h4>
+				</td>
+			</tr>
+			@php
+			}
+			@endphp	
+			@endguest
+			</form>
 		</div>
 		<br>
 		<div class="Comentarios">
-			<table>
+			<table style="margin-left:2%">
 				<tr>
-					<td>
+					<td colspan="2">
 						<h2>Comentarios de Usuarios<h2>
 					</td>
 				</tr>
 				@foreach(($Comments= DB::table('comments')->select('users.name', 'users.id as iduser' ,'users.profile_pic' , 'comments.comment', 'comments.created_at')->leftJoin('users','comments.user_id','=','users.id')->get()) as $Comment) 
 				<tr>
-					<td>
-						<form>
-							<a href="/profile/{{$Comment->iduser}}">
-								<img width="100px" height="100px" src="{{Storage::url($Comment->profile_pic)}}">
-							</a>
-						</form>
-					<td>
+					<td style="width:120px;">
+						<a href="/profile/{{$Comment->iduser}}">
+							<img width="100px" height="100px" src="{{Storage::url($Comment->profile_pic)}}">
+						</a>
+					</td>
+					<td colspan="2">
 						<p style="margin: 0%; border-bottom: 3px solid blue;"><font size="4"><b>{{$Comment->name}}</b></font></p>
                                                         <p style="margin: 0%; margin-left: 1em;"><font size="2"><b>{{$Comment->created_at}}</b></font></p>
 							<p style = "margin-left: 2em; margin-top: 1em; margin-bottom: 1em;">{{$Comment->comment}}</p>
 					</td>
 				</tr>
-				@endforeach					
+				@endforeach
+			</table>
+			<table style="margin-left:2%">
 				<tr>
 					<td>
 						<br>
@@ -256,6 +284,9 @@
 				</tr>
 				<form action="/reviewpage/{{$reviewchosen->idreview}}/comment" method="POST">
 				@csrf
+				@guest
+							
+				@else
 				<tr>
 					<td>
 							<textarea style="resize: none" name="ReviewCommentGeneral"  rows="6" cols="60" placeholder="Maximo 255 caracteres." maxlength="255"></textarea>					
@@ -263,17 +294,17 @@
 				</tr>		
 				<tr>
 					<td>
-						@guest
-							
-						@else
+						
 						<input type="hidden" name="ReviewComment" value="{{ $reviewchosen->idreview }}">
 						<input type="hidden" name="UserComment" value="{{ Auth::user()->id }}">
-						@endguest
+						
 						<input type="submit" value="Insertar Comentario"> 	
 					</td>
 				</tr>
+				@endguest
 				</form>
-			</table>
+			</table>			
+		</table>
 		</div>
 	</div>
 </body>

@@ -106,6 +106,10 @@
 				{
 					width:30%; text-align: center; background: #7092be; height: 500px;
 				}
+				div.UserRelated
+				{
+					width:70%; background: #F8FAFC;
+				}
 				div.ItemGame,div.ItemUser
 					{
 						display:flex; border-bottom: 3px;border-top: 3px; border-color: #3f48cc; border-bottom-style: solid; border-top-style: solid; border-radius: 2px;
@@ -150,8 +154,20 @@
 	<div class="UserData">
 		<div class="ProfileData">
 			<h2>{{$userprofile->name}}</h2>
-			<h3>{{$userprofile->name}}</h3>
+			<h3>{{$userprofile->email}}</h3>
 			<h3>Fecha de registro: {{$userprofile->created_at}}</h3>
+			@guest
+							
+			@else
+				@if($userprofile->id!=Auth::user()->id)
+				<form action="/profile/{{Auth::user()->id}}/befriends" method="POST">
+				@csrf
+					<input type="hidden" name="UserBefriends" value="{{$userprofile->id}}">
+					<input type="hidden" name="User" value="{{Auth::user()->id}}">
+					<input type="submit" value="Seguir Usuario">
+				</form>
+				@endif
+			@endguest
 		</div>
 		<div class="UserRelated">
 			<div class="ProfileInteractions">

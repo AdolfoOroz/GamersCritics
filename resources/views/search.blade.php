@@ -144,6 +144,7 @@
 		<div class="Results">
 			<table class="Results" style="width: 100%;">
 				<legend><h2>Resultados</h2></legend>
+				<div id="ReviesSearch">
 				@if (!empty($reviewsearch))
 				@foreach($reviewsearch as $Review) 
 				<tr>
@@ -162,17 +163,27 @@
 				</tr>
 				@endforeach
 				@endif
+				</div>
+				<div id="UserSearch">
+				@if (!empty($usersearch))
+				@foreach($usersearch as $userF) 
 				<tr>
 					<td>
+					<a href="/profile/{{$userF->id}}">
 						<div class="ItemUser">
-							<img class="ImgPrev" src="img/aaaaa.jpg" alt="HTML 5 Logo" height="100" width="100" style="margin-top:15px;">	
+							<img class="ImgPrev" src="{{Storage::url($userF->profile_pic)}}" alt="HTML 5 Logo" height="100" width="100" style="margin-top:15px;">	
 							<div class="Data">
-								<h4>Nombre Usuario</h4>
-								<p>Alias</p>
+								<h4>Nombre Usuario: {{$userF->name}}</h4>
+								<h4>Correo: {{$userF->email}}</h4>
+								<h4>Subscrito desde: {{$userF->created_at}}
 							</div>
 						</div>
+					</>
 					</td>
 				<tr>
+				@endforeach
+				@endif
+				</div>
 			</table>
 		</div>
 	</div>

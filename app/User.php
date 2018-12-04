@@ -40,6 +40,14 @@ class User extends Authenticatable
         return $this->hasMany(Rating::class); // this matches the Eloquent model
     }
 	
+	public function UserBefriend() {
+        return $this->hasMany(Befriend::class); // this matches the Eloquent model
+    }
+	
+	public function UserBefriended() {
+        return $this->hasMany(Befriend::class); // this matches the Eloquent model
+    }
+	/*
 	public function UserBefriends() {
         return $this->belongsToMany(User::class);
     }
@@ -47,7 +55,7 @@ class User extends Authenticatable
 	public function UserRecommends() {
         return $this->belongsToMany(User::class);
     }
-	
+	*/
 	public function UserComments() {
         return $this->hasMany(Comment::class); // this matches the Eloquent model
     }

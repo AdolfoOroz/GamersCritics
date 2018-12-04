@@ -67,16 +67,20 @@
 
             div.Header
             {
-                background: #85F0F1; padding: 10px 10px 10px 10px; display: flex;
+                background: #99d9ea; padding: 10px 10px 10px 10px; display: flex;
             }  
                 img.imginicio
                 {
                     display: block; text-align: left; padding-top: 10px; padding-left: 30px
                 }
-                div.Search,div.Menu
+                div.Search
                 {
                     display: inline; text-align: right; padding-top: 30px;
                 }
+				div.Menu
+				{
+					 display: inline; text-align: right;
+				}
 				div.EmptyHead
                 {
                     display: block; text-align: center; width: 15%;
@@ -105,13 +109,13 @@
 <body>
 	<div class="Header">
 		
-        <img class="imginicio" src="img/aaaaa.jpg" alt="HTML 5 Logo" height="80" width="70">
+        <img class="imginicio" src="img/aaaaa.jpg" alt="HTML 5 Logo" height="80" width="100">
 		
         <div class="EmptyHead"> </div>
 		<div class="Search" style="width:47%">
 			<form action="{{ route('search-review') }}" method="GET" >
-			@csrf
-			<input type="text" name="search" style="width:80%">
+			@csrf			
+			<input type="text" name="search" style="width:80%" placeholder="Buscar Review/Usuario...">
 			<input type="submit" value="Buscar">
 			</form>
 		</div>
@@ -127,7 +131,7 @@
 					$UserProfilepic=Auth::user()->profile_pic;
 					$url=Storage::url($UserProfilepic);
 					?>
-						<img width="100px" height="100px" src="{{$url}}">
+						<img width="60px" height="60px" src="{{$url}}">
 					</td>
 					<td>
 						<p>{{Auth::user()->name}}</p>
@@ -157,12 +161,12 @@
 		<div class="TopReviews">
 			<table style="width:100%">
 				<legend><h2>Reseñas recientes.</h2></legend>
-				@foreach(($Reviews= DB::table('reviews')->select('users.name', 'reviews.title', 'reviews.created_at', 'reviews.id')->leftJoin('users','reviews.user_id','=','users.id')->take(10)->get()) as $Review) 
+				@foreach(($Reviews= DB::table('reviews')->select('users.name', 'reviews.title', 'reviews.created_at', 'reviews.id','images.reviewimage')->leftJoin('users','reviews.user_id','=','users.id')->leftJoin('images','reviews.id','=','images.review_id')->groupBy('reviews.id')->take(10)->get()) as $Review) 
 				<tr>				
 					<td>
 					<a href="/reviewpage/{{$Review->id}}">
 						<div class="ItemGame">
-							<img class="ImgPrev" src="img/aaaaa.jpg" alt="HTML 5 Logo" height="100" width="100" style="margin-top:15px;">	
+							<img class="ImgPrev" src="{{Storage::url($Review->reviewimage)}}" alt="HTML 5 Logo" height="100" width="100" style="margin-top:6px;">	
 							<div class="Data">
 								<h4>Titulo del Review: {{$Review->title}}</h4>
 								<p>Autor: {{$Review->name}}</p>
@@ -178,30 +182,34 @@
 		<div class="FriendActions">
 			<table style="width:100%">
 				<legend><h2>Actividad recientes.</h2></legend>
+				@foreach(($News= DB::table('reviews')->select('users.name', 'reviews.title', 'reviews.created_at', 'reviews.id','images.reviewimage')->leftJoin('befriends','befriends.userbefriends_id','=','reviews.id')->leftJoin('users','befriends.userbefriends_id','=','users.id')->leftJoin('images','reviews.id','=','images.review_id')->where('befriends.user_id', Auth::user()->id)->groupBy('reviews.id')->take(5)->get()) as $New) 
 				<tr>
 					<td>
 						<div class="ItemGame">
-							<img class="ImgPrev" src="img/aaaaa.jpg" alt="HTML 5 Logo" height="100" width="100" style="margin-top:15px;">	
+							<img class="ImgPrev" src="{{Storage::url($New->reviewimage)}}" alt="HTML 5 Logo" height="100" width="100" style="margin-top:6px;">	
 							<div class="Data">
-								<h4>Titulo Juego</h4>
-								<p>Autor</p>
-								<p>Fecha</p>
+								<h3>{{$New->name}} ha publicado un review!</h3>
+								<h4>Titulo del Review: {{$New->title}}</h4>
+								<p>Fecha: {{$New->created_at}}</p>
 							</div>
 						</div>
 					</td>
 				</tr>
+				@endforeach
+				@foreach(($News= DB::table('comments')->select('users.name', 'reviews.title', 'comments.created_at', 'comments.review_id','images.reviewimage')->leftJoin('befriends','befriends.userbefriends_id','comments.user_id')->leftJoin('users','befriends.userbefriends_id','=','users.id')->leftJoin('reviews','comments.review_id','=','reviews.id')->leftJoin('images','reviews.id','=','images.review_id')->where('befriends.user_id', Auth::user()->id)->groupBy('reviews.id')->take(5)->get()) as $New) 	
 				<tr>
 					<td>
 						<div class="ItemGame">
-							<img class="ImgPrev" src="img/aaaaa.jpg" alt="HTML 5 Logo" height="100" width="100" style="margin-top:15px;">	
+							<img class="ImgPrev" src="{{Storage::url($New->reviewimage)}}" alt="HTML 5 Logo" height="100" width="100" style="margin-top:6px;">	
 							<div class="Data">
-								<h4>Tu amigo comento</h4>
-								<p>Autor</p>
-								<p>Juego</p>
+								<h4>{{$New->name}} ha comentado un review!</h4>
+								<p>Titulo del Review: {{$New->title}}</p>
+								<p>Fecha: {{$New->created_at}}</p>
 							</div>
 						</div>
 					</td>
 				</tr>
+				@endforeach
 			</table>
 		</div>
 	</div>

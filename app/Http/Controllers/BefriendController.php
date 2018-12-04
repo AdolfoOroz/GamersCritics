@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Rating;
-class RatingController extends Controller
+use App\Befriend;
+class BefriendController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -32,29 +32,26 @@ class RatingController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
 	 
-	 +------------+------------------+------+-----+---------+----------------+
-| Field      | Type             | Null | Key | Default | Extra          |
-+------------+------------------+------+-----+---------+----------------+
-| id         | int(10) unsigned | NO   | PRI | NULL    | auto_increment |
-| review_id  | int(10) unsigned | NO   |     | NULL    |                |
-| user_id    | int(10) unsigned | NO   |     | NULL    |                |
-| rating     | int(11)          | NO   |     | NULL    |                |
-| created_at | timestamp        | YES  |     | NULL    |                |
-| updated_at | timestamp        | YES  |     | NULL    |                |
-+------------+------------------+------+-----+---------+----------------+
+	 +------------------+------------------+------+-----+---------+----------------+
+| Field            | Type             | Null | Key | Default | Extra          |
++------------------+------------------+------+-----+---------+----------------+
+| id               | int(10) unsigned | NO   | PRI | NULL    | auto_increment |
+| userbefriends_id | int(10) unsigned | NO   |     | NULL    |                |
+| user_id          | int(10) unsigned | NO   |     | NULL    |                |
+| created_at       | timestamp        | YES  |     | NULL    |                |
+| updated_at       | timestamp        | YES  |     | NULL    |                |
++------------------+------------------+------+-----+---------+----------------+
      */
     public function store(Request $request)
     {
         //
-		$ReviewGame=$request->input('ReviewRating');
-		$ReviewUser=$request->input('UserRating');
-		$ReviewRating=$request->input('NumberRating');
+		$UserBefriend=$request->input('UserBefriends');
+		$UserBefriended=$request->input('User');
 		
-		$NewRating=new Rating;
-		$NewRating->review_id=$ReviewGame;
-		$NewRating->user_id=$ReviewUser;
-		$NewRating->rating=$ReviewRating;
-		$NewRating->save();
+		$NewBefriend=new Befriend;
+		$NewBefriend->userbefriends_id=$UserBefriend;
+		$NewBefriend->user_id=$UserBefriended;
+		$NewBefriend->save();
 		
 		return redirect()->back();
     }

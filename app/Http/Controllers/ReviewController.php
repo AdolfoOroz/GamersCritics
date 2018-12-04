@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Review;
 use App\Images;
 use App\Videos;
+use App\User;
 class ReviewController extends Controller
 {
     /**
@@ -130,7 +131,8 @@ class ReviewController extends Controller
 		 $SearchValue=$request->input('search');
 		 return view(
 			'search', 
-			['reviewsearch' => Review::select('users.name','reviews.created_at', 'reviews.title', 'reviews.created_at', 'reviews.id as idreview','reviews.description','games.name as gamename', 'games.overalreview as littlereview','games.publisher','games.director')->leftJoin('users','reviews.user_id','=','users.id')->leftJoin('games','reviews.game_id','=','games.id')->where('reviews.title', 'like', '%' . $SearchValue . '%')->get()]
+			['reviewsearch' => Review::select('users.name','reviews.created_at', 'reviews.title', 'reviews.created_at', 'reviews.id as idreview','reviews.description','games.name as gamename', 'games.overalreview as littlereview','games.publisher','games.director')->leftJoin('users','reviews.user_id','=','users.id')->leftJoin('games','reviews.game_id','=','games.id')->where('reviews.title', 'like', '%' . $SearchValue . '%')->get()],
+			['usersearch' => User::select('users.id','users.name','users.profile_pic','users.email','users.created_at')->where('users.name', 'like', '%' . $SearchValue . '%')->orwhere('users.email','like','%'. $SearchValue .'%')->get()]
 		);
 	 }
 	 
