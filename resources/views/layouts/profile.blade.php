@@ -119,6 +119,14 @@
 					{
 						margin-left:15px;
 					}
+			td.showdata
+			{
+				background-color:#FFFFFF;
+			}
+			td.showdata:hover
+			{
+				background-color:#CCCCCC;
+			}
         </style>
 </head>
 
@@ -211,7 +219,8 @@
 							
 			@else
 				@if($userprofile->id!=Auth::user()->id)
-				@if(($OwnReview=DB::table('befriends')->select('id')->where('user_id',$userprofile->id)->where('userbefriends_id',Auth::user()->id)->get())!="[]")
+				@if(($OwnReview=DB::table('befriends')->select('id')->where('userbefriends_id',$userprofile->id)->where('user_id',Auth::user()->id)->get())=='[]')
+				{{$OwnReview}}
 				<form action="/profile/{{Auth::user()->id}}/befriends" method="POST">
 				@csrf
 					<input type="hidden" name="UserBefriends" value="{{$userprofile->id}}">
@@ -228,16 +237,16 @@
 			<div class="ProfileInteractions">
 				<table style="width:30%; margin-left:5%">
 				<tr>
-					<td style="width:10%; height: 50px; padding-right: 20px;" id="TodoClick">
+					<td style="width:10%; height: 50px; padding-right: 20px;" id="TodoClick" class="showdata">
 						General
 					</td>
-					<td style="width:10%; height: 50px; padding-right: 20px;" id="ReviewsClick">
+					<td style="width:10%; height: 50px; padding-right: 20px;" id="ReviewsClick" class="showdata">
 						Reseñas
 					</td>
-					<td style="width:10%; height: 50px; padding-right: 20px;" id="FollowersClick">
+					<td style="width:10%; height: 50px; padding-right: 20px;" id="FollowersClick" class="showdata">
 						Seguidores
 					</td>
-					<td style="width:10%; height: 50px; padding-right: 20px;" id="FollowsClick">
+					<td style="width:10%; height: 50px; padding-right: 20px;" id="FollowsClick" class="showdata">
 						Siguiendo
 					</td>
 				</tr>

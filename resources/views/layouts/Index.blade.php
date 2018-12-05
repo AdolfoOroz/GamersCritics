@@ -199,7 +199,7 @@
 		<div class="FriendActions">
 			<table style="width:100%">
 				<legend><h2>Actividad recientes.</h2></legend>
-				@foreach(($News= DB::table('reviews')->select('users.name', 'reviews.title', 'reviews.created_at', 'reviews.id','images.reviewimage')->leftJoin('befriends','befriends.userbefriends_id','=','reviews.id')->leftJoin('users','befriends.userbefriends_id','=','users.id')->leftJoin('images','reviews.id','=','images.review_id')->where('befriends.user_id', Auth::user()->id)->groupBy('reviews.id')->take(5)->get()) as $New) 
+				@foreach(($News= DB::table('reviews')->select('users.name', 'reviews.title', 'reviews.created_at', 'reviews.id','images.reviewimage')->leftJoin('befriends','befriends.userbefriends_id','=','reviews.user_id')->leftJoin('users','befriends.userbefriends_id','=','users.id')->leftJoin('images','reviews.id','=','images.review_id')->where('befriends.user_id', Auth::user()->id)->groupBy('reviews.id')->take(5)->get()) as $New) 
 				<tr>
 					<td>
 					<a href="/reviewpage/{{$New->id}}">

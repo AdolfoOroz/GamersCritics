@@ -250,7 +250,7 @@
 				$('video[id="mainVid"]').show();
 			});
 			$('video[id="vidM2"]').click(function(){
-				var trial2=$('video[id="vidM1"]').attr('src');
+				var trial2=$('video[id="vidM2"]').attr('src');
 				$('video[id="mainVid"]').attr("src",trial2);
 				$('img[id="mainIMG"]').hide();
 				$('video[id="mainVid"]').show();
@@ -297,7 +297,13 @@
 				@endphp
 				@endforeach
 				@php
+				if($Counta!=0)
+				{					
 				$RatingMuestra=$RatingGeneral/$Counta;
+				}
+				else{
+				$RatingMuestra="No Calificado";
+				}
 				@endphp
 				<h5>Calificacion General:{{$RatingMuestra}}</h5>
 				</td>
@@ -359,7 +365,7 @@
 						<h2>Comentarios de Usuarios<h2>
 					</td>
 				</tr>
-				@foreach(($Comments= DB::table('comments')->select('users.name', 'users.id as iduser' ,'users.profile_pic' , 'comments.comment', 'comments.created_at')->leftJoin('users','comments.user_id','=','users.id')->get()) as $Comment) 
+				@foreach(($Comments= DB::table('comments')->select('users.name', 'users.id as iduser' ,'users.profile_pic' , 'comments.comment', 'comments.created_at')->leftJoin('users','comments.user_id','=','users.id')->where('comments.review_id','=',$reviewchosen->idreview)->get()) as $Comment) 
 				<tr>
 					<td style="width:120px;">
 						<a href="/profile/{{$Comment->iduser}}">

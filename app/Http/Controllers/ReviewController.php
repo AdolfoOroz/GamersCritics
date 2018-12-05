@@ -80,7 +80,7 @@ class ReviewController extends Controller
 			$NewImage= new Images;
 			$NewImage->review_id=$ReviewId;
 			$NewImage->reviewimage=$request->file('ReviewImages1')->store('public');
-			$NewImage->save();
+			$NewImage->save();
 		}
 		if(!empty($request->file('ReviewImages2')))
 		{
@@ -143,6 +143,17 @@ class ReviewController extends Controller
 			['reviewsearch' => Review::find($SearchValue)]
 			);
 	 }
+	 
+	 public function searchgame(Request $request)
+	 {
+		 $SearchValue=$request->input('GameID');
+		 return view(
+			'layouts.search', 
+			['reviewsearch' => Review::select('users.name','reviews.created_at', 'reviews.title', 'reviews.created_at', 'reviews.id as idreview','reviews.description','games.name as gamename', 'games.overalreview as littlereview','games.publisher','games.director','images.reviewimage')->leftJoin('users','reviews.user_id','=','users.id')->leftJoin('games','reviews.game_id','=','games.id')->leftJoin('images','images.review_id','=','reviews.id')->where('reviews.game_id', '=',$SearchValue)->groupBy('reviews.id')->get()],
+			['usersearch' => User::select('users.id','users.name','users.profile_pic','users.email','users.created_at')->where('users.id', '=', '0')->get()]
+			);
+	 }
+	 
     public function show($id)
     {
         //

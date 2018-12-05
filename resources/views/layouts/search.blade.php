@@ -102,6 +102,14 @@
 					{
 						margin-left:15px;
 					}
+			td.showdata
+			{
+				background-color:#FFFFFF;
+			}
+			td.showdata:hover
+			{
+				background-color:#CCCCCC;
+			}
         </style>
 </head>
 
@@ -175,13 +183,13 @@
 	<div class="SearchMethods">
 		<table style="width:30%; margin-left:20%">
 			<tr>
-				<td style="width:10%; height: 50px;" id="TodoClick">
+				<td style="width:10%; height: 50px;" id="TodoClick" class="showdata">
 					Todo
 				</td>
-				<td style="width:10%; height: 50px;" id="ReviewsClick">
+				<td style="width:10%; height: 50px;" id="ReviewsClick" class="showdata">
 					Reviews
 				</td>
-				<td style="width:10%; height: 50px;" id="UsuariosClick">
+				<td style="width:10%; height: 50px;" id="UsuariosClick" class="showdata">
 					Usuarios
 				</td>
 			</tr>
@@ -191,7 +199,15 @@
 		<div class="Categories">
 			<h2> Categorias </h2>
 			<ul>
-				<li>Categorias</li>
+				@foreach(($Games= DB::table('games')->get()) as $Game)
+					<form action="{{route('search_game',$Game->id)}}" method="POST">
+					@csrf
+									<li>
+									<input type="hidden" name="GameID" value="{{$Game->id}}">
+									<input type="submit" value="{{ $Game->name}}">
+									</li>
+					</form>
+				@endforeach
 			</ul>
 		</div>		
 		<div class="Results">
