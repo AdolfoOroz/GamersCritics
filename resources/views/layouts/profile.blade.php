@@ -124,7 +124,6 @@
 
 <body>
 	<main class="container" style="width:98%;"> 
-@yield('content')
 <div class="Header">
 	<table>
 	<tr>
