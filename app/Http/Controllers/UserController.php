@@ -47,7 +47,7 @@ class UserController extends Controller
     {
         //
 		return view(
-			'profile', 
+			'layouts.profile', 
 			['userprofile' => User::findOrFail($id)]
 		);
     }

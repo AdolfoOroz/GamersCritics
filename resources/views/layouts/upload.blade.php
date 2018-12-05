@@ -1,5 +1,3 @@
-<!--@extends('layouts.app')-->
-
 <html>
 <head>
 <meta charset="utf-8">
@@ -9,8 +7,10 @@
         <title>Laravel</title>
 
         <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
-
+       <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
+        <!-- Styles -->
+		<script src="{{ asset('js/app.js') }}" defer></script>
         <!-- Styles -->
         <style>
             

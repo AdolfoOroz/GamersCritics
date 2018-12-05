@@ -1,5 +1,3 @@
-<!--@extends('layouts.app')-->
-
 <html>
 <head>
 <meta charset="utf-8">
@@ -9,8 +7,11 @@
         <title>Laravel</title>
 
         <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
-
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
+        <!-- Styles -->
+		<script src="{{ asset('js/app.js') }}" defer></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <!-- Styles -->
         <style>
             
@@ -105,31 +106,80 @@
 </head>
 
 <body>
-	<div class="Header">
-        <img class="imginicio" src="img/aaaaa.jpg" alt="HTML 5 Logo" height="80" width="70">
-        <div class="EmptyHead"> </div>
-		<div class="Search" style="width:47%">
-			<input type="text" name="search" style="width:80%">
-			<input type="button" value="Search" name="btnsearch">
-		</div>
-		<div class="EmptyHead"> </div>
-		<div class="Menu">
-			<input type="button" value="Profile" name="btnprofile">
-			<input type="button" value="Upload" name="btnupload">
-			<input type="button" value="Log Out" name="btnlogout">
-		</div>
-    </div>
+	<main class="container" style="width:98%;"> 
+@yield('content')
+<div class="Header">
+	<table>
+	<tr>
+		<td>
+			<a href="/home">
+				<img class="imginicio" src="img/aaaaa.jpg" alt="HTML 5 Logo" height="80" width="100">
+			</a>
+		</td>
+		<td>
+			<h3 style="margin-top:1em;">GamersCritics</h3>
+		</td>
+	</tr>
+	</table>
+	<div class="EmptyHead"> </div>
+		<div class="Search" style="width:80%">
+			<form action="{{ route('search-review') }}" method="GET" >
+			@csrf			
+				<input type="text" name="search" style="width:80%" placeholder="Buscar Review/Usuario...">
+				<input type="submit" value="Buscar">
+			</form>
+	</div>
+	<div class="EmptyHead"> </div>
+	<div class="Menu">
+		@guest					
+		@else
+		<table>
+			<tr>
+				<td>
+					<?php
+					$UserProfilepic=Auth::user()->profile_pic;
+					$url=Storage::url($UserProfilepic);
+					?>
+					<img width="60px" height="60px" src="{{$url}}">
+				</td>
+				<td>
+					<p>{{Auth::user()->name}}</p>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href="/profile/{{Auth::user()->id}}">
+						<input type="button" value="Profile" name="btnprofile">
+					</a>
+				</td>
+				<td>
+					<a href="{{ route('upload') }}">
+						<input type="button" value="Upload" name="btnupload">
+					</a>
+				</td>
+				<td>
+					<form id="logout-form" action="{{ route('logout') }}" method="POST" style="margin: 0px;">
+                        @csrf
+						<input type="submit" value="Log Out">
+                    </form>						
+				</td>
+			</tr>
+		</table>
+		@endguest
+	</div>
+</div>
+</main>
 	<div class="SearchMethods">
 		<table style="width:30%; margin-left:20%">
 			<tr>
-				<td style="width:10%; height: 50px;">
+				<td style="width:10%; height: 50px;" id="TodoClick">
 					Todo
 				</td>
-				<td style="width:10%; height: 50px;">
-					Usuarios
+				<td style="width:10%; height: 50px;" id="ReviewsClick">
+					Reviews
 				</td>
-				<td style="width:10%; height: 50px;">
-					Videojuegos
+				<td style="width:10%; height: 50px;" id="UsuariosClick">
+					Usuarios
 				</td>
 			</tr>
 		</table>
@@ -148,10 +198,10 @@
 				@if (!empty($reviewsearch))
 				@foreach($reviewsearch as $Review) 
 				<tr>
-					<td>
+					<td id="ReviesSearch">
 					<a href="/reviewpage/{{$Review->idreview}}">
 						<div class="ItemGame">
-							<img class="ImgPrev" src="img/aaaaa.jpg" alt="HTML 5 Logo" height="100" width="100" style="margin-top:15px;">	
+							<img class="ImgPrev" src="{{Storage::url($Review->reviewimage)}}" alt="HTML 5 Logo" height="100" width="100" style="margin-top:7px;">	
 							<div class="Data">
 								<h4>{{$Review->title}}</h4>
 								<p>Review creado por {{$Review->name}}</p>
@@ -168,7 +218,7 @@
 				@if (!empty($usersearch))
 				@foreach($usersearch as $userF) 
 				<tr>
-					<td>
+					<td id="UserSearch">
 					<a href="/profile/{{$userF->id}}">
 						<div class="ItemUser">
 							<img class="ImgPrev" src="{{Storage::url($userF->profile_pic)}}" alt="HTML 5 Logo" height="100" width="100" style="margin-top:15px;">	
@@ -185,6 +235,23 @@
 				@endif
 				</div>
 			</table>
+			<!-- JQUERY -->
+		<script>
+		$(document).ready(function(){
+			$('td[id="TodoClick"]').click(function(){
+				$('td[id="ReviesSearch"]').show();
+				$('td[id="UserSearch"]').show();
+			});
+			$('td[id="ReviewsClick"]').click(function(){
+				$('td[id="ReviesSearch"]').show();
+				$('td[id="UserSearch"]').hide();
+			});
+			$('td[id="UsuariosClick"]').click(function(){
+				$('td[id="ReviesSearch"]').hide();
+				$('td[id="UserSearch"]').show();
+			});
+		});
+        </script>
 		</div>
 	</div>
 </body>

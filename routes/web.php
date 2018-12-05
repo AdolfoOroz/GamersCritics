@@ -14,15 +14,15 @@
 ;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('layouts.welcome');
 });
 
 Route::get('/index', function () {
-    return view('index');
+    return view('layouts.Index');
 })->name('home');
 
 Route::get('/upload', function () {
-    return view('upload');
+    return view('layouts.upload');
 })->name('upload');
 
 Route::get('/reviewpage/{idreview}',['as' => 'show-review', 'uses' => 'ReviewController@show']);

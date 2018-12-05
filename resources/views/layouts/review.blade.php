@@ -1,5 +1,3 @@
-<!--@extends('layouts.app')-->
-
 <html>
 <head>
 <meta charset="utf-8">
@@ -9,8 +7,11 @@
         <title>Laravel</title>
 
         <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
-
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
+        <!-- Styles -->
+		<script src="{{ asset('js/app.js') }}" defer></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <!-- Styles -->
         <style>
             
@@ -112,49 +113,148 @@
 </head>
 
 <body>
-	<div class="Header">
-		<a href="{{ route('home') }}">
-        <img class="imginicio" src="img/aaaaa.jpg" alt="HTML 5 Logo" height="80" width="70">
-		</a>
-        <div class="EmptyHead"> </div>
-		<div class="Search" style="width:47%">
-			<input type="text" name="search" style="width:80%">
-			<input type="button" value="Search" name="btnsearch">
-		</div>
-		<div class="EmptyHead"> </div>
-		
-		
-		<div class="Menu">
-			<input type="button" value="Profile" name="btnprofile">
-			<input type="button" value="Upload" name="btnupload">
-			<input type="button" value="Log Out" name="btnlogout">
-		</div>
-    </div>
-	
+<main class="container" style="width:98%;"> 
+@yield('content')
+<div class="Header">
+	<table>
+	<tr>
+		<td>
+			<a href="/home">
+				<img class="imginicio" src="img/aaaaa.jpg" alt="HTML 5 Logo" height="80" width="100">
+			</a>
+		</td>
+		<td>
+			<h3 style="margin-top:1em;">GamersCritics</h3>
+		</td>
+	</tr>
+	</table>
+	<div class="EmptyHead"> </div>
+		<div class="Search" style="width:80%">
+			<form action="{{ route('search-review') }}" method="GET" >
+			@csrf			
+				<input type="text" name="search" style="width:80%" placeholder="Buscar Review/Usuario...">
+				<input type="submit" value="Buscar">
+			</form>
+	</div>
+	<div class="EmptyHead"> </div>
+	<div class="Menu">
+		@guest					
+		@else
+		<table>
+			<tr>
+				<td>
+					<?php
+					$UserProfilepic=Auth::user()->profile_pic;
+					$url=Storage::url($UserProfilepic);
+					?>
+					<img width="60px" height="60px" src="{{$url}}">
+				</td>
+				<td>
+					<p>{{Auth::user()->name}}</p>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href="/profile/{{Auth::user()->id}}">
+						<input type="button" value="Profile" name="btnprofile">
+					</a>
+				</td>
+				<td>
+					<a href="{{ route('upload') }}">
+						<input type="button" value="Upload" name="btnupload">
+					</a>
+				</td>
+				<td>
+					<form id="logout-form" action="{{ route('logout') }}" method="POST" style="margin: 0px;">
+                        @csrf
+						<input type="submit" value="Log Out">
+                    </form>						
+				</td>
+			</tr>
+		</table>
+		@endguest
+	</div>
+</div>
+</main>
 	<div class="GamePreview">
 		<div class="GameImages">
 			<div class="BigImage">
-				<img src="img/339.png" width="100%" height="300">
+				<img id="mainIMG" src="img/339.png" width="100%" height="300">
+				<video id="mainVid" src="IMG/img1.png" style="width: 100%; height: 300px; display:none" controls autoplay loop>
 			</div>
 			<div class="Thumbnails">
 				<table style="width: 100%">
+					@php
+						$CountIMG=1;
+						$CountVID=1;
+					@endphp
 					<tr>
 					@foreach(($Images= DB::table('images')->where('images.review_id', $reviewchosen->idreview )->get()) as $Image)
-						<td style="width:20%">
-							<img src="{{Storage::url($Image->reviewimage)}}" width="100%" height="100" style="padding-left:3px;">
+					@php
+						$IDIMG="imgM".$CountIMG;
+						$CountIMG=$CountIMG+1;
+					@endphp
+					<td style="width:20%">
+							<img id="{{$IDIMG}}" src="{{Storage::url($Image->reviewimage)}}" width="100%" height="100" style="padding-left:3px;">
 						<td>
 					@endforeach
 					</tr>
 					<tr style="text-align: center;">
 					@foreach(($Videos= DB::table('videos')->where('videos.review_id', $reviewchosen->idreview )->get()) as $Video)
+					@php
+						$IDVID="vidM".$CountVID;
+						$CountVID=$CountVID+1;
+					@endphp	
 						<td style="width:20%">
-							<video src="{{Storage::url($Video->reviewvideo)}}" width="100%" height="100" style="padding-left:3px;"><video>
+							<video id="{{$IDVID}}" src="{{Storage::url($Video->reviewvideo)}}" width="100%" height="100" style="padding-left:3px;"><video>
 						<td>
 					@endforeach
 					</tr>
 				</table>
 			</div>
 		</div>
+		<!-- JQUERY -->
+		<script>
+		$(document).ready(function(){
+			$('img[id="imgM1"]').click(function(){
+				var trial = $('img[id="imgM1"]').attr('src');
+				$('img[id="mainIMG"]').attr("src", trial);
+				$('img[id="mainIMG"]').show();
+				$('video[id="mainVid"]').hide();
+			});
+			$('img[id="imgM2"]').click(function(){
+				var trial = $('img[id="imgM2"]').attr('src');
+				$('img[id="mainIMG"]').attr("src", trial);
+				$('img[id="mainIMG"]').show();
+				$('video[id="mainVid"]').hide();
+			});
+			$('img[id="imgM3"]').click(function(){
+				var trial = $('img[id="imgM3"]').attr('src');
+				$('img[id="mainIMG"]').attr("src", trial);
+				$('img[id="mainIMG"]').show();
+				$('video[id="mainVid"]').hide();
+			});
+			$('img[id="imgM4"]').click(function(){
+				var trial = $('img[id="imgM4"]').attr('src');
+				$('img[id="mainIMG"]').attr("src", trial);
+				$('img[id="mainIMG"]').show();
+				$('video[id="mainVid"]').hide();
+			});
+			$('video[id="vidM1"]').click(function(){
+				var trial2=$('video[id="vidM1"]').attr('src');
+				$('video[id="mainVid"]').attr("src",trial2);
+				$('img[id="mainIMG"]').hide();
+				$('video[id="mainVid"]').show();
+			});
+			$('video[id="vidM2"]').click(function(){
+				var trial2=$('video[id="vidM1"]').attr('src');
+				$('video[id="mainVid"]').attr("src",trial2);
+				$('img[id="mainIMG"]').hide();
+				$('video[id="mainVid"]').show();
+			});
+		});
+        </script>
+		
 		<div class="GameData">
 			<h2> {{$reviewchosen->gamename}}</h2>
 			<p>{{$reviewchosen->littlereview}}</p>			

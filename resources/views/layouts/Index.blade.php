@@ -1,5 +1,3 @@
-<!--@extends('layouts.app')-->
-
 <html>
 <head>
 <meta charset="utf-8">
@@ -9,9 +7,10 @@
         <title>Laravel</title>
 
         <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
-
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
         <!-- Styles -->
+		<script src="{{ asset('js/app.js') }}" defer></script>
         <style>
             
             html, body {
@@ -65,26 +64,7 @@
                 margin-bottom: 30px;
             }
 
-            div.Header
-            {
-                background: #99d9ea; padding: 10px 10px 10px 10px; display: flex;
-            }  
-                img.imginicio
-                {
-                    display: block; text-align: left; padding-top: 10px; padding-left: 30px
-                }
-                div.Search
-                {
-                    display: inline; text-align: right; padding-top: 30px;
-                }
-				div.Menu
-				{
-					 display: inline; text-align: right;
-				}
-				div.EmptyHead
-                {
-                    display: block; text-align: center; width: 15%;
-                }
+            
 				
 				div.MainArticles
 				{
@@ -104,63 +84,100 @@
 						}
 						
         </style>
+		<style>
+		div.Header
+            {
+                background: #99d9ea; padding: 10px 10px 10px 10px; display: flex;
+            }  
+                img.imginicio
+                {
+                    display: block; text-align: left; padding-top: 10px; padding-left: 10px
+                }
+                div.Search
+                {
+                    display: inline; text-align: right; padding-top: 30px;
+                }
+				div.Menu
+				{
+					 display: inline; text-align: right;
+				}
+				div.EmptyHead
+                {
+                    display: block; text-align: center; width: 12.5%;
+                }
+</style>
 </head>
 
+
 <body>
-	<div class="Header">
-		
-        <img class="imginicio" src="img/aaaaa.jpg" alt="HTML 5 Logo" height="80" width="100">
-		
-        <div class="EmptyHead"> </div>
-		<div class="Search" style="width:47%">
+<main class="container" style="width:98%;"> 
+@yield('content')
+<div class="Header">
+	<table>
+	<tr>
+		<td>
+			<a href="/home">
+				<img class="imginicio" src="img/aaaaa.jpg" alt="HTML 5 Logo" height="80" width="100">
+			</a>
+		</td>
+		<td>
+			<h3 style="margin-top:1em;">GamersCritics</h3>
+		</td>
+	</tr>
+	</table>
+	<div class="EmptyHead"> </div>
+		<div class="Search" style="width:80%">
 			<form action="{{ route('search-review') }}" method="GET" >
 			@csrf			
-			<input type="text" name="search" style="width:80%" placeholder="Buscar Review/Usuario...">
-			<input type="submit" value="Buscar">
+				<input type="text" name="search" style="width:80%" placeholder="Buscar Review/Usuario...">
+				<input type="submit" value="Buscar">
 			</form>
-		</div>
-		<div class="EmptyHead"> </div>
-		<div class="Menu">
-		@guest
-							
+	</div>
+	<div class="EmptyHead"> </div>
+	<div class="Menu">
+		@guest					
 		@else
-			<table>
-				<tr>
-					<td>
+		<table>
+			<tr>
+				<td>
 					<?php
 					$UserProfilepic=Auth::user()->profile_pic;
 					$url=Storage::url($UserProfilepic);
 					?>
-						<img width="60px" height="60px" src="{{$url}}">
-					</td>
-					<td>
-						<p>{{Auth::user()->name}}</p>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<a href="/profile/{{Auth::user()->id}}">
+					<img width="60px" height="60px" src="{{$url}}">
+				</td>
+				<td>
+					<p>{{Auth::user()->name}}</p>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href="/profile/{{Auth::user()->id}}">
 						<input type="button" value="Profile" name="btnprofile">
-						</a>
-					</td>
-					<td>
-						<a href="{{ route('upload') }}">
-							<input type="button" value="Upload" name="btnupload">
-						</a>
-					</td>
-					<td>
-						<input type="button" value="Log Out" name="btnlogout">
-					</td>
-				</tr>
-			</table>
+					</a>
+				</td>
+				<td>
+					<a href="{{ route('upload') }}">
+						<input type="button" value="Upload" name="btnupload">
+					</a>
+				</td>
+				<td>
+					<form id="logout-form" action="{{ route('logout') }}" method="POST" style="margin: 0px;">
+                        @csrf
+						<input type="submit" value="Log Out">
+                    </form>						
+				</td>
+			</tr>
+		</table>
 		@endguest
-		</div>
-    </div>
+	</div>
+</div>
+</main>
 	
 	<div class="MainArticles">
 		<div class="TopReviews">
 			<table style="width:100%">
-				<legend><h2>Reseñas recientes.</h2></legend>
+				<legend><h2>Reseñas recientes. @yield('title')</h2></legend>
 				@foreach(($Reviews= DB::table('reviews')->select('users.name', 'reviews.title', 'reviews.created_at', 'reviews.id','images.reviewimage')->leftJoin('users','reviews.user_id','=','users.id')->leftJoin('images','reviews.id','=','images.review_id')->groupBy('reviews.id')->take(10)->get()) as $Review) 
 				<tr>				
 					<td>
