@@ -131,7 +131,7 @@
 		<td>
 			<a href="/home">
 				@php
-					$CatURL="/img/aaaaa.jpg";
+					$CatURL="img/aaaaa.jpg";
 				@endphp
 				<img class="imginicio" src="{{Storage::url($CatURL)}}" alt="HTML 5 Logo" height="80" width="100">
 			</a>
