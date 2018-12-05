@@ -135,7 +135,14 @@ class ReviewController extends Controller
 			['usersearch' => User::select('users.id','users.name','users.profile_pic','users.email','users.created_at')->where('users.name', 'like', '%' . $SearchValue . '%')->orwhere('users.email','like','%'. $SearchValue .'%')->get()]
 		);
 	 }
-	 
+	  public function searchedit(Request $request)
+	 {
+		 $SearchValue=$request->input('ReviewID');
+		 return view(
+			'layouts.upload', 
+			['reviewsearch' => Review::find($SearchValue)]
+			);
+	 }
     public function show($id)
     {
         //
@@ -151,9 +158,36 @@ class ReviewController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request)
     {
         //
+		 try{
+        //Find the user object from model if it exists
+		$ReviewTitle=$request->input('TitleReview');
+		$ReviewID=$request->input('ReviewID');
+		$ReviewGame=$request->input('GameID');
+		$ReviewUser=$request->input('UserReview');
+		$ReviewDescription=$request->input('GameReview');
+        $NewReview= Review::findOrFail($ReviewID);
+
+        //$request contain your post data sent from your edit from
+        //$user is an object which contains the column names of your table
+
+        //Set user object attributes
+        $NewReview->title=$ReviewTitle;
+		$NewReview->description=$ReviewDescription;
+		$NewReview->user_id=$ReviewUser;
+		$NewReview->game_id=$ReviewGame;
+
+        // Save/update user. 
+        // This will will update your the row in ur db.
+        $NewReview->save();
+
+        return redirect('/home');
+		}
+		catch(ModelNotFoundException $err){
+			//Show error page
+		}
     }
 
     /**
@@ -176,6 +210,6 @@ class ReviewController extends Controller
      */
     public function destroy($id)
     {
-        //
+        //		
     }
 }

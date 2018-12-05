@@ -34,6 +34,8 @@ Route::post('/upload/review',['as' => 'upload-reviews', 'uses' => 'ReviewControl
 Route::post('/reviewpage/{idreview}/comment',['as' => 'upload_comment', 'uses' => 'CommentsController@store']);
 Route::post('/reviewpage/{idreview}/rating',['as' => 'upload_rating', 'uses' => 'RatingController@store']);
 Route::post('/profile/{iduser}/befriends',['as' => 'upload_befriend', 'uses' => 'BefriendController@store']);
+Route::post('profile/upload/{idreview}',['as' => 'prepare_review', 'uses' => 'ReviewController@searchedit']);
+Route::post('/upload/{idreview}/update',['as' => 'edit_reviews', 'uses' => 'ReviewController@edit']);
 
 Auth::routes();
 

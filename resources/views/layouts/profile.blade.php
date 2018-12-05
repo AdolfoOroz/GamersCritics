@@ -130,7 +130,10 @@
 	<tr>
 		<td>
 			<a href="/home">
-				<img class="imginicio" src="img/aaaaa.jpg" alt="HTML 5 Logo" height="80" width="100">
+				@php
+					$CatURL="/img/aaaaa.jpg";
+				@endphp
+				<img class="imginicio" src="{{Storage::url($CatURL)}}" alt="HTML 5 Logo" height="80" width="100">
 			</a>
 		</td>
 		<td>
@@ -209,12 +212,16 @@
 							
 			@else
 				@if($userprofile->id!=Auth::user()->id)
+				@if(($OwnReview=DB::table('befriends')->select('id')->where('user_id',$userprofile->id)->where('userbefriends_id',Auth::user()->id)->get())!="[]")
 				<form action="/profile/{{Auth::user()->id}}/befriends" method="POST">
 				@csrf
 					<input type="hidden" name="UserBefriends" value="{{$userprofile->id}}">
 					<input type="hidden" name="User" value="{{Auth::user()->id}}">
 					<input type="submit" value="Seguir Usuario">
 				</form>
+				@else
+					<h3>Ya estas Siguiendo a este usuario!</h3>
+				@endif
 				@endif
 			@endguest
 		</div>
@@ -251,6 +258,13 @@
 									<h4>{{$Review->title}}</h4>
 									<p>Review creado por {{$Review->name}}</p>
 									<p>Creado el {{$Review->created_at}}</p>
+									@if(($OwnReview=DB::table('reviews')->select('title')->where('id',$Review->idreview)->where('user_id',Auth::user()->id)->get())!="[]")
+									<form action="upload/{{$Review->idreview}}" method="POST">
+									@csrf
+										<input type="hidden" name="ReviewID" value="{{$Review->idreview}}">
+										<input type="submit" value="Modificar Review">
+									</form>
+									@endif
 								</div>
 							</div>
 							</a>

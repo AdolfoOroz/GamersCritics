@@ -202,6 +202,7 @@
 				@foreach(($News= DB::table('reviews')->select('users.name', 'reviews.title', 'reviews.created_at', 'reviews.id','images.reviewimage')->leftJoin('befriends','befriends.userbefriends_id','=','reviews.id')->leftJoin('users','befriends.userbefriends_id','=','users.id')->leftJoin('images','reviews.id','=','images.review_id')->where('befriends.user_id', Auth::user()->id)->groupBy('reviews.id')->take(5)->get()) as $New) 
 				<tr>
 					<td>
+					<a href="/reviewpage/{{$New->id}}">
 						<div class="ItemGame">
 							<img class="ImgPrev" src="{{Storage::url($New->reviewimage)}}" alt="HTML 5 Logo" height="100" width="100" style="margin-top:6px;">	
 							<div class="Data">
@@ -210,12 +211,14 @@
 								<p>Fecha: {{$New->created_at}}</p>
 							</div>
 						</div>
+					</a>
 					</td>
 				</tr>
 				@endforeach
-				@foreach(($News= DB::table('comments')->select('users.name', 'reviews.title', 'comments.created_at', 'comments.review_id','images.reviewimage')->leftJoin('befriends','befriends.userbefriends_id','comments.user_id')->leftJoin('users','befriends.userbefriends_id','=','users.id')->leftJoin('reviews','comments.review_id','=','reviews.id')->leftJoin('images','reviews.id','=','images.review_id')->where('befriends.user_id', Auth::user()->id)->groupBy('reviews.id')->take(5)->get()) as $New) 	
+				@foreach(($News= DB::table('comments')->select('users.name', 'reviews.title', 'comments.created_at', 'reviews.id','images.reviewimage')->leftJoin('befriends','befriends.userbefriends_id','comments.user_id')->leftJoin('users','befriends.userbefriends_id','=','users.id')->leftJoin('reviews','comments.review_id','=','reviews.id')->leftJoin('images','reviews.id','=','images.review_id')->where('befriends.user_id', Auth::user()->id)->groupBy('reviews.id')->take(5)->get()) as $New) 	
 				<tr>
 					<td>
+					<a href="/reviewpage/{{$New->id}}">
 						<div class="ItemGame">
 							<img class="ImgPrev" src="{{Storage::url($New->reviewimage)}}" alt="HTML 5 Logo" height="100" width="100" style="margin-top:6px;">	
 							<div class="Data">
@@ -224,6 +227,7 @@
 								<p>Fecha: {{$New->created_at}}</p>
 							</div>
 						</div>
+					</a>
 					</td>
 				</tr>
 				@endforeach

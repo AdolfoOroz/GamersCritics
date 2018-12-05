@@ -142,6 +142,7 @@
 			</div>
 		</form>
 		<div class="Review">
+		@if(!isset($reviewsearch))
 		<form action="{{route('upload-reviews')}}" method="POST" enctype="multipart/form-data">
 		@csrf
 		<legend><h2>Datos de Review<h2></legend>
@@ -222,6 +223,53 @@
 			</table>
 			</div>
 		</form>
+		@else
+		<form action="/upload/{{$reviewsearch->id}}/update" method="POST" enctype="multipart/form-data">
+		@csrf
+		<legend><h2>Datos de Review<h2></legend>
+			
+			<table>
+				<tr>
+					<td><h4>Categoria de Juego</h4></td>		
+					<td>
+						<select style="width:100%" name="GameID" value="{{$reviewsearch->game_id}}">
+							@foreach(($Games= DB::table('games')->get()) as $Game) 
+								<option value="{{ $Game->id }}">{{ $Game->name}}</option>
+							@endforeach							
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td><h4>Titulo de Review</h4></td>		
+					<td>
+						<input type="hidden" name="ReviewID" value="{{$reviewsearch->id}}">
+						<input type="input" name="TitleReview" placeholder="Titulo para el Review." value="{{$reviewsearch->title}}">
+						@guest
+						
+						@else
+						<input type="hidden" name="UserReview" value="{{ Auth::user()->id }}">
+						@endguest
+					</td>
+				</tr>
+				<tr>
+					<td>
+					<h4>Sinopsis</h4>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+					<textarea style="resize: none" name="GameReview" placeholder="Maximo 4000 caracteres." maxlength="4000"  rows="22" cols="48">{{$reviewsearch->description}}</textarea>
+					</td>
+				</tr>				
+				<tr>
+					<td>
+						<input type="submit" value="Modeficar Review">
+					</td>
+				</tr>
+			</table>
+			</div>
+		</form>
+		@endif
 	</div>
 </body>
 </html>
